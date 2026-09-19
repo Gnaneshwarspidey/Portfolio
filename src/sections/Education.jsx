@@ -1,7 +1,9 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { SectionHeading } from '../components/SectionHeading';
 import { EDUCATION } from '../data/portfolioData';
-import { GraduationCap, BookOpen, CheckCircle2, Award } from 'lucide-react';
+import { fadeUp, stagger, staggerChild, VIEWPORT } from '../hooks/useMotion';
+import { GraduationCap, BookOpen, CheckCircle2 } from 'lucide-react';
 
 export const Education = () => {
   return (
@@ -15,7 +17,13 @@ export const Education = () => {
         />
 
         <div className="max-w-4xl mx-auto">
-          <div className="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800/90 relative overflow-hidden">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={VIEWPORT}
+            className="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800/90 relative overflow-hidden"
+          >
             
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800/80 mb-6">
@@ -47,24 +55,30 @@ export const Education = () => {
               <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-4">
                 Key Academic & Applied Focus Areas
               </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <motion.div
+                variants={stagger(0.08)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={VIEWPORT}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+              >
                 {EDUCATION.focusAreas.map((area, index) => (
-                  <div
+                  <motion.div
                     key={index}
+                    variants={staggerChild}
                     className="p-3 rounded-xl bg-dark-950/60 border border-slate-800/80 flex items-center gap-3 text-xs sm:text-sm text-slate-300"
                   >
                     <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0" />
                     <span>{area}</span>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
 
-          </div>
+          </motion.div>
         </div>
 
       </div>
     </section>
   );
 };
-

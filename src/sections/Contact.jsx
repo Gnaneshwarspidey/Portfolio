@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { SectionHeading } from '../components/SectionHeading';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { Linkedin, Github } from '../components/SocialIcons';
+import { fadeUp, stagger, staggerChild, VIEWPORT } from '../hooks/useMotion';
 import { 
   Mail, 
   Phone, 
@@ -56,10 +58,16 @@ export const Contact = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
           
           {/* Left Column: Direct Contact Details & Links (5 cols) */}
-          <div className="lg:col-span-5 space-y-4">
+          <motion.div
+            variants={stagger(0.1)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={VIEWPORT}
+            className="lg:col-span-5 space-y-4"
+          >
             
             {/* Email Card */}
-            <div className="glass-card p-5 rounded-2xl flex items-center justify-between border border-slate-800/90 group">
+            <motion.div variants={staggerChild} className="glass-card p-5 rounded-2xl flex items-center justify-between border border-slate-800/90 group">
               <div className="flex items-center gap-3.5 overflow-hidden">
                 <div className="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
                   <Mail className="w-5 h-5" />
@@ -76,16 +84,16 @@ export const Contact = () => {
               </div>
               <button
                 onClick={() => handleCopy(PERSONAL_INFO.email, 'email')}
-                className="p-2 rounded-lg bg-dark-950 text-slate-400 hover:text-white border border-slate-800 shrink-0 ml-2"
+                className="p-2 rounded-lg bg-dark-950 text-slate-400 hover:text-white border border-slate-800 shrink-0 ml-2 transition-colors"
                 title="Copy Email"
                 aria-label="Copy Email"
               >
                 {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
               </button>
-            </div>
+            </motion.div>
 
             {/* Phone Card */}
-            <div className="glass-card p-5 rounded-2xl flex items-center justify-between border border-slate-800/90 group">
+            <motion.div variants={staggerChild} className="glass-card p-5 rounded-2xl flex items-center justify-between border border-slate-800/90 group">
               <div className="flex items-center gap-3.5">
                 <div className="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
                   <Phone className="w-5 h-5" />
@@ -102,21 +110,22 @@ export const Contact = () => {
               </div>
               <button
                 onClick={() => handleCopy(PERSONAL_INFO.phone, 'phone')}
-                className="p-2 rounded-lg bg-dark-950 text-slate-400 hover:text-white border border-slate-800 shrink-0"
+                className="p-2 rounded-lg bg-dark-950 text-slate-400 hover:text-white border border-slate-800 shrink-0 transition-colors"
                 title="Copy Phone"
                 aria-label="Copy Phone"
               >
                 {copiedPhone ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
               </button>
-            </div>
+            </motion.div>
 
             {/* Social Links Cards */}
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <motion.div variants={staggerChild} className="grid grid-cols-2 gap-4 pt-2">
               <a
                 href={PERSONAL_INFO.linkedin}
                 target="_blank"
                 rel="noreferrer"
                 className="glass-card glass-card-hover p-4 rounded-xl flex items-center gap-3 border border-slate-800 text-slate-200 hover:text-white"
+                aria-label="LinkedIn profile"
               >
                 <div className="w-9 h-9 rounded-lg bg-blue-600/10 flex items-center justify-center text-blue-400">
                   <Linkedin className="w-4 h-4" />
@@ -134,6 +143,7 @@ export const Contact = () => {
                 target="_blank"
                 rel="noreferrer"
                 className="glass-card glass-card-hover p-4 rounded-xl flex items-center gap-3 border border-slate-800 text-slate-200 hover:text-white"
+                aria-label="GitHub profile"
               >
                 <div className="w-9 h-9 rounded-lg bg-purple-600/10 flex items-center justify-center text-purple-400">
                   <Github className="w-4 h-4" />
@@ -145,17 +155,23 @@ export const Contact = () => {
                   </div>
                 </div>
               </a>
-            </div>
+            </motion.div>
 
             {/* Quick Response Notice */}
-            <div className="p-4 rounded-xl bg-dark-950/80 border border-slate-800 text-xs text-slate-400 font-mono leading-relaxed">
+            <motion.div variants={staggerChild} className="p-4 rounded-xl bg-dark-950/80 border border-slate-800 text-xs text-slate-400 font-mono leading-relaxed">
               ⚡ Available for software engineering, full-stack, and AI/ML opportunities. Typically responds within 24 hours.
-            </div>
+            </motion.div>
 
-          </div>
+          </motion.div>
 
           {/* Right Column: Clean Interactive Contact Form (7 cols) */}
-          <div className="lg:col-span-7">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={VIEWPORT}
+            className="lg:col-span-7"
+          >
             <form 
               onSubmit={handleSubmit}
               className="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800/90 space-y-4"
@@ -238,7 +254,7 @@ export const Contact = () => {
                 Opens your default email client with pre-filled message directly to {PERSONAL_INFO.email}
               </div>
             </form>
-          </div>
+          </motion.div>
 
         </div>
 
@@ -246,4 +262,3 @@ export const Contact = () => {
     </section>
   );
 };
-

@@ -12,55 +12,99 @@
     @apply bg-dark-950 text-slate-200 antialiased selection:bg-blue-500/30 selection:text-blue-200 overflow-x-hidden;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
+
+  /* Accessible focus indicators for keyboard navigation */
+  :focus-visible {
+    @apply outline-none ring-2 ring-blue-500 ring-offset-2 ring-offset-dark-950;
+  }
+}
+
+/* Reduced Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Custom modern scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #07090e;
+  background: #06080d;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #172033;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #263759;
 }
 
-/* Subtle glassmorphic card utility */
+/* ─── Glass-card surface ─────────────────────────────────────── */
 .glass-card {
-  background: rgba(16, 23, 38, 0.7);
+  background: rgba(11, 15, 23, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .glass-card-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card-hover:hover {
-  background: rgba(22, 31, 51, 0.85);
-  border-color: rgba(59, 130, 246, 0.3);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px -5px rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.32);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px -10px rgba(0, 0, 0, 0.55),
+              0 0 20px -6px rgba(59, 130, 246, 0.12);
 }
 
-/* Background grid styling */
+/* ─── Pro card (alias) ───────────────────────────────────────── */
+.pro-card {
+  background: #0b0f17;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pro-card:hover {
+  border-color: rgba(59, 130, 246, 0.35);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.5),
+              0 0 20px -5px rgba(59, 130, 246, 0.12);
+}
+
+/* ─── Subtle dot grid pattern ────────────────────────────────── */
 .bg-grid-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  background-size: 32px 32px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
-.gradient-text {
+.bg-subtle-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ─── Text gradient utilities ─────────────────────────────────── */
+.gradient-heading {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-400;
 }
 
+.gradient-brand {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400;
+}
+
+/* Blue-to-cyan accent used in Hero name + section highlights */
 .gradient-accent {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400;
 }

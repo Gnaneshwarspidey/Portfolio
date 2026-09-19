@@ -20,10 +20,10 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 30);
 
       const sections = ['hero', 'about', 'skills', 'projects', 'experience', 'certifications', 'education', 'contact'];
-      const scrollPos = window.scrollY + 200;
+      const scrollPos = window.scrollY + 180;
 
       for (const section of sections) {
         const el = document.getElementById(section);
@@ -42,35 +42,50 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile drawer on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled 
-        ? 'bg-dark-950/85 backdrop-blur-md border-b border-slate-800/80 shadow-lg shadow-black/40 py-3.5' 
-        : 'bg-transparent py-5'
-    }`}>
+    <header
+      role="banner"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-dark-950/90 backdrop-blur-md border-b border-white/[0.08] shadow-lg shadow-black/40 py-3.5'
+          : 'bg-transparent py-5'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           
-          {/* Logo / Brand */}
-          <a 
-            href="#hero" 
-            className="flex items-center gap-2.5 text-slate-100 hover:text-blue-400 transition-colors group"
+          {/* Brand identifier */}
+          <a
+            href="#hero"
+            className="flex items-center gap-2.5 text-white hover:text-blue-400 transition-colors group focus-visible:rounded-lg"
+            aria-label="Back to top"
           >
-            <div className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:bg-blue-500/20 group-hover:border-blue-400 transition-all">
-              <Terminal className="w-5 h-5" />
+            <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:border-blue-400/50 transition-all">
+              <Terminal className="w-4 h-4" />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold tracking-tight text-sm text-white">
-                Keshgir Gnaneshwar
+              <span className="font-bold tracking-tight text-sm text-white leading-none">
+                {PERSONAL_INFO.name}
               </span>
-              <span className="text-[11px] text-slate-400 font-mono tracking-wider">
+              <span className="text-[11px] text-slate-400 font-mono tracking-wide mt-0.5">
                 AI/ML Engineer
               </span>
             </div>
           </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1 bg-dark-900/60 p-1.5 rounded-full border border-slate-800/80">
+          {/* Desktop Navigation Links */}
+          <nav role="navigation" aria-label="Main Navigation" className="hidden lg:flex items-center gap-1 bg-dark-900/80 p-1.5 rounded-full border border-white/[0.07] backdrop-blur-md">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.substring(1);
               return (
@@ -79,8 +94,8 @@ export const Navbar = () => {
                   href={link.href}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
                     isActive
-                      ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30 shadow-sm'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+                      ? 'bg-blue-600/20 text-blue-300 border border-blue-500/30 shadow-sm'
+                      : 'text-slate-300 hover:text-white hover:bg-white/5'
                   }`}
                 >
                   {link.name}
@@ -89,14 +104,14 @@ export const Navbar = () => {
             })}
           </nav>
 
-          {/* Quick Contact & Socials (Desktop) */}
-          <div className="hidden lg:flex items-center gap-3">
+          {/* Socials & Connect CTA */}
+          <div className="hidden lg:flex items-center gap-2.5">
             <a
               href={PERSONAL_INFO.github}
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub Profile"
-              className="p-2 text-slate-400 hover:text-white hover:bg-slate-800/60 rounded-lg transition-colors border border-transparent hover:border-slate-700"
+              className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors border border-transparent hover:border-white/10"
             >
               <Github className="w-4 h-4" />
             </a>
@@ -105,59 +120,61 @@ export const Navbar = () => {
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn Profile"
-              className="p-2 text-slate-400 hover:text-white hover:bg-slate-800/60 rounded-lg transition-colors border border-transparent hover:border-slate-700"
+              className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors border border-transparent hover:border-white/10"
             >
               <Linkedin className="w-4 h-4" />
             </a>
             <a
               href="#contact"
-              className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-lg shadow-sm shadow-blue-500/20 transition-all active:scale-95"
+              className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-lg shadow-sm shadow-blue-500/20 transition-all active:scale-95 ml-1"
             >
-              Let's Connect
+              <span>Let's Connect</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Toggle Button */}
           <div className="flex lg:hidden items-center gap-2">
             <a
               href="#contact"
-              className="px-3 py-1.5 text-xs font-semibold text-white bg-blue-600 rounded-md"
+              className="px-3 py-1.5 text-xs font-semibold text-white bg-blue-600 rounded-lg"
             >
               Connect
             </a>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-slate-300 hover:text-white rounded-lg bg-dark-900 border border-slate-800"
-              aria-label="Toggle navigation menu"
+              className="p-2 text-slate-300 hover:text-white rounded-lg bg-dark-900 border border-white/10"
+              aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={isOpen}
             >
               {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
+
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Drawer */}
       {isOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[60px] bg-dark-950/98 border-b border-slate-800 p-6 backdrop-blur-xl shadow-2xl transition-all">
-          <div className="flex flex-col gap-3">
+        <div className="lg:hidden fixed inset-x-0 top-[58px] bg-dark-950/95 border-b border-white/10 p-6 backdrop-blur-xl shadow-2xl animate-fade-in">
+          <div className="flex flex-col gap-2">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="px-4 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all"
+                className="px-4 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all"
               >
                 {link.name}
               </a>
             ))}
-            <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
-              <div className="flex items-center gap-3">
+            <div className="pt-4 mt-2 border-t border-white/10 flex items-center justify-between">
+              <div className="flex items-center gap-2">
                 <a
                   href={PERSONAL_INFO.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2 text-slate-400 hover:text-white bg-dark-900 rounded-lg border border-slate-800"
+                  className="p-2 text-slate-400 hover:text-white bg-dark-900 rounded-lg border border-white/10"
                   aria-label="GitHub"
                 >
                   <Github className="w-4 h-4" />
@@ -166,7 +183,7 @@ export const Navbar = () => {
                   href={PERSONAL_INFO.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2 text-slate-400 hover:text-white bg-dark-900 rounded-lg border border-slate-800"
+                  className="p-2 text-slate-400 hover:text-white bg-dark-900 rounded-lg border border-white/10"
                   aria-label="LinkedIn"
                 >
                   <Linkedin className="w-4 h-4" />
@@ -174,7 +191,7 @@ export const Navbar = () => {
               </div>
               <a
                 href={`mailto:${PERSONAL_INFO.email}`}
-                className="flex items-center gap-1 text-xs text-slate-400 hover:text-blue-400"
+                className="flex items-center gap-1.5 text-xs font-mono text-slate-400 hover:text-blue-400"
               >
                 <Mail className="w-3.5 h-3.5" />
                 {PERSONAL_INFO.email}
@@ -186,4 +203,3 @@ export const Navbar = () => {
     </header>
   );
 };
-

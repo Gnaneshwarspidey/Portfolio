@@ -1,22 +1,20 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { SectionHeading } from '../components/SectionHeading';
 import { CERTIFICATIONS } from '../data/portfolioData';
+import { stagger, staggerChild, VIEWPORT } from '../hooks/useMotion';
 import { 
   Wifi, 
   ShieldCheck, 
   Smartphone, 
   Sparkles, 
   Award, 
-  ExternalLink,
   CheckCircle2
 } from 'lucide-react';
 
 export const Certifications = () => {
   const iconMap = {
-    Wifi: Wifi,
-    ShieldCheck: ShieldCheck,
-    Smartphone: Smartphone,
-    Sparkles: Sparkles,
+    Wifi, ShieldCheck, Smartphone, Sparkles,
   };
 
   return (
@@ -29,13 +27,20 @@ export const Certifications = () => {
           subtitle="Accredited programs across IoT, Cybersecurity, Mobile Development, and Artificial Intelligence."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <motion.div
+          variants={stagger(0.12)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VIEWPORT}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto"
+        >
           {CERTIFICATIONS.map((cert) => {
             const IconComponent = iconMap[cert.icon] || Award;
 
             return (
-              <div
+              <motion.div
                 key={cert.id}
+                variants={staggerChild}
                 className="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between border border-slate-800/90 group"
               >
                 <div>
@@ -71,13 +76,12 @@ export const Certifications = () => {
                   <span>Authorized Certificate</span>
                   <span className="text-slate-300 font-semibold">{cert.issuer}</span>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
       </div>
     </section>
   );
 };
-

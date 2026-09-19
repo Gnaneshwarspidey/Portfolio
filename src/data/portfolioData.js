@@ -34,25 +34,25 @@ export const ABOUT_TEXT = {
 export const SKILL_CATEGORIES = [
   {
     id: "programming",
-    name: "Programming Languages",
+    name: "Programming",
     icon: "Code2",
     skills: ["Python", "Java", "C", "JavaScript", "Kotlin"]
   },
   {
     id: "frontend",
-    name: "Frontend Development",
+    name: "Frontend",
     icon: "Layout",
     skills: ["React", "JavaScript", "HTML5", "CSS3", "Responsive UI"]
   },
   {
     id: "backend",
-    name: "Backend & APIs",
+    name: "Backend",
     icon: "Server",
     skills: ["Python", "Flask", "RESTful APIs", "Backend Logic"]
   },
   {
     id: "databases",
-    name: "Databases & Storage",
+    name: "Databases",
     icon: "Database",
     skills: ["SQL", "MongoDB", "Supabase"]
   },
@@ -64,7 +64,7 @@ export const SKILL_CATEGORIES = [
   },
   {
     id: "data",
-    name: "Data Analysis & Analytics",
+    name: "Data & Analytics",
     icon: "BarChart3",
     skills: ["Pandas", "NumPy", "Matplotlib", "Microsoft Excel"]
   },
@@ -80,7 +80,7 @@ export const PROJECTS = [
   {
     id: "bazar-byte",
     title: "Bazar Byte",
-    category: "E-Commerce / Marketplace Platform",
+    category: "E-Commerce / Marketplace",
     tagline: "Modern Digital Marketplace for Dry Fruits & Nuts",
     description: "A digital commerce platform designed for browsing, selecting, and purchasing premium dry fruits. Engineered with a responsive frontend catalog, structured product categorization, seamless cart interaction logic, and backend-ready data models for online retail workflows.",
     highlights: [
@@ -92,7 +92,7 @@ export const PROJECTS = [
     accentColor: "from-amber-500/20 to-orange-500/20",
     theme: "ecommerce",
     githubUrl: "https://github.com/Gnaneshwarspidey/Portfolio",
-    demoUrl: "#"
+    demoUrl: "https://gnaneshwarspidey.github.io/Portfolio/"
   },
   {
     id: "green-pulse",
@@ -109,7 +109,7 @@ export const PROJECTS = [
     accentColor: "from-emerald-500/20 to-teal-500/20",
     theme: "agritech",
     githubUrl: "https://github.com/Gnaneshwarspidey/Portfolio",
-    demoUrl: "#"
+    demoUrl: "https://gnaneshwarspidey.github.io/Portfolio/"
   },
   {
     id: "event-hub",
@@ -126,7 +126,7 @@ export const PROJECTS = [
     accentColor: "from-violet-500/20 to-indigo-500/20",
     theme: "events",
     githubUrl: "https://github.com/Gnaneshwarspidey/Portfolio",
-    demoUrl: "#"
+    demoUrl: "https://gnaneshwarspidey.github.io/Portfolio/"
   }
 ];
 
@@ -194,4 +194,3 @@ export const EDUCATION = {
     "Software Engineering Principles"
   ]
 };
-
