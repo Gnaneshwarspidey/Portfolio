@@ -1,205 +1,250 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ArrowUpRight, Mail } from 'lucide-react';
+import { SpotlightNavbar } from './ui/spotlight-navbar';
 import { PERSONAL_INFO } from '../data/portfolioData';
-import { Menu, X, Terminal, ArrowUpRight, Mail } from 'lucide-react';
 import { Github, Linkedin } from './SocialIcons';
 
+const NAV_LINKS = [
+  { name: 'Home',         id: 'hero' },
+  { name: 'About',        id: 'about' },
+  { name: 'Skills',       id: 'skills' },
+  { name: 'Projects',     id: 'projects' },
+  { name: 'Experience',   id: 'experience' },
+  { name: 'Certifications', id: 'certifications' },
+  { name: 'Education',    id: 'education' },
+  { name: 'Contact',      id: 'contact' },
+];
+
 export const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const [scrolled, setScrolled]           = useState(false);
+  const [mobileOpen, setMobileOpen]       = useState(false);
 
-  const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Certifications', href: '#certifications' },
-    { name: 'Education', href: '#education' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
+  /* ── scroll spy ── */
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
-
-      const sections = ['hero', 'about', 'skills', 'projects', 'experience', 'certifications', 'education', 'contact'];
-      const scrollPos = window.scrollY + 180;
-
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPos >= top && scrollPos < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 30);
+      let current = 'hero';
+      NAV_LINKS.forEach(({ id }) => {
+        const el = document.getElementById(id);
+        if (el && y >= el.offsetTop - 220) current = id;
+      });
+      setActiveSection(current);
     };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close mobile drawer on Escape key
+  /* ── close mobile on resize ── */
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && isOpen) {
-        setIsOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen]);
+    const onResize = () => { if (window.innerWidth >= 1024) setMobileOpen(false); };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  /* ── lock body scroll when mobile open ── */
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
+
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setActiveSection(id);
+    setMobileOpen(false);
+  };
+
+  const openExternal = (url) => {
+    if (url && url !== '#') window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  const email = PERSONAL_INFO?.email || '';
+
+  /* items for SpotlightNavbar */
+  const spotlightItems = NAV_LINKS.map((l) => ({ label: l.name, href: `#${l.id}` }));
+  const activeIndex    = NAV_LINKS.findIndex((l) => l.id === activeSection);
 
   return (
-    <header
-      role="banner"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-dark-950/90 backdrop-blur-md border-b border-white/[0.08] shadow-lg shadow-black/40 py-3.5'
-          : 'bg-transparent py-5'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          
-          {/* Brand identifier */}
-          <a
-            href="#hero"
-            className="flex items-center gap-2.5 text-white hover:text-blue-400 transition-colors group focus-visible:rounded-lg"
-            aria-label="Back to top"
-          >
-            <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:border-blue-400/50 transition-all">
-              <Terminal className="w-4 h-4" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold tracking-tight text-sm text-white leading-none">
-                {PERSONAL_INFO.name}
-              </span>
-              <span className="text-[11px] text-slate-400 font-mono tracking-wide mt-0.5">
-                AI/ML Engineer
-              </span>
-            </div>
-          </a>
+    <>
+      <motion.header
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className={
+          'fixed left-0 right-0 top-0 z-50 transition-all duration-500 ' +
+          (scrolled
+            ? 'border-b border-white/10 bg-dark-950/85 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-2xl'
+            : 'bg-transparent')
+        }
+      >
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-20 items-center justify-between">
 
-          {/* Desktop Navigation Links */}
-          <nav role="navigation" aria-label="Main Navigation" className="hidden lg:flex items-center gap-1 bg-dark-900/80 p-1.5 rounded-full border border-white/[0.07] backdrop-blur-md">
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.href.substring(1);
-              return (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
-                    isActive
-                      ? 'bg-blue-600/20 text-blue-300 border border-blue-500/30 shadow-sm'
-                      : 'text-slate-300 hover:text-white hover:bg-white/5'
-                  }`}
-                >
-                  {link.name}
-                </a>
-              );
-            })}
-          </nav>
-
-          {/* Socials & Connect CTA */}
-          <div className="hidden lg:flex items-center gap-2.5">
-            <a
-              href={PERSONAL_INFO.github}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub Profile"
-              className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors border border-transparent hover:border-white/10"
+            {/* Logo */}
+            <motion.button
+              type="button"
+              onClick={() => scrollTo('hero')}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="flex items-center gap-3"
             >
-              <Github className="w-4 h-4" />
-            </a>
-            <a
-              href={PERSONAL_INFO.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn Profile"
-              className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors border border-transparent hover:border-white/10"
-            >
-              <Linkedin className="w-4 h-4" />
-            </a>
-            <a
-              href="#contact"
-              className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-lg shadow-sm shadow-blue-500/20 transition-all active:scale-95 ml-1"
-            >
-              <span>Let's Connect</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </a>
-          </div>
-
-          {/* Mobile Menu Toggle Button */}
-          <div className="flex lg:hidden items-center gap-2">
-            <a
-              href="#contact"
-              className="px-3 py-1.5 text-xs font-semibold text-white bg-blue-600 rounded-lg"
-            >
-              Connect
-            </a>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-slate-300 hover:text-white rounded-lg bg-dark-900 border border-white/10"
-              aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-              aria-expanded={isOpen}
-            >
-              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
-
-        </div>
-      </div>
-
-      {/* Mobile Drawer */}
-      {isOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[58px] bg-dark-950/95 border-b border-white/10 p-6 backdrop-blur-xl shadow-2xl animate-fade-in">
-          <div className="flex flex-col gap-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="px-4 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all"
-              >
-                {link.name}
-              </a>
-            ))}
-            <div className="pt-4 mt-2 border-t border-white/10 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <a
-                  href={PERSONAL_INFO.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-2 text-slate-400 hover:text-white bg-dark-900 rounded-lg border border-white/10"
-                  aria-label="GitHub"
-                >
-                  <Github className="w-4 h-4" />
-                </a>
-                <a
-                  href={PERSONAL_INFO.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-2 text-slate-400 hover:text-white bg-dark-900 rounded-lg border border-white/10"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="w-4 h-4" />
-                </a>
+              <div className="hidden text-left sm:block">
+                <div className="text-sm font-semibold tracking-[0.18em] text-white">
+                  {PERSONAL_INFO?.name || 'GNANESHWAR'}
+                </div>
+                <div className="mt-0.5 text-xs uppercase tracking-[0.22em] text-cyan-300/70">
+                  AI & ML Student
+                </div>
               </div>
-              <a
-                href={`mailto:${PERSONAL_INFO.email}`}
-                className="flex items-center gap-1.5 text-xs font-mono text-slate-400 hover:text-blue-400"
-              >
-                <Mail className="w-3.5 h-3.5" />
-                {PERSONAL_INFO.email}
-              </a>
+            </motion.button>
+
+            {/* Desktop — SpotlightNavbar */}
+            <div className="hidden lg:block">
+              <SpotlightNavbar
+                items={spotlightItems}
+                defaultActiveIndex={activeIndex >= 0 ? activeIndex : 0}
+                onItemClick={(item, idx) => scrollTo(NAV_LINKS[idx].id)}
+                className="!pt-0"
+              />
             </div>
+
+            {/* Desktop right actions */}
+            <div className="hidden items-center gap-2 lg:flex">
+              <motion.button
+                type="button"
+                onClick={() => openExternal(PERSONAL_INFO?.github)}
+                whileHover={{ y: -2, scale: 1.04 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.035] text-white/70 transition-all hover:border-white/20 hover:bg-white/[0.08] hover:text-white"
+                aria-label="GitHub"
+              >
+                <Github className="h-4 w-4" />
+              </motion.button>
+
+              <motion.button
+                type="button"
+                onClick={() => openExternal(PERSONAL_INFO?.linkedin)}
+                whileHover={{ y: -2, scale: 1.04 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.035] text-white/70 transition-all hover:border-white/20 hover:bg-white/[0.08] hover:text-white"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="h-4 w-4" />
+              </motion.button>
+
+              <motion.button
+                type="button"
+                onClick={() => { if (email) window.location.href = 'mailto:' + email; }}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                className="group ml-1 flex items-center gap-2 rounded-xl border border-cyan-300/25 bg-cyan-300/10 px-4 py-2.5 text-xs font-semibold text-cyan-100 shadow-[0_0_25px_rgba(34,211,238,0.08)] transition-all hover:border-cyan-300/50 hover:bg-cyan-300/15"
+              >
+                <Mail size={14} />
+                <span>Let&apos;s Connect</span>
+                <ArrowUpRight size={13} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </motion.button>
+            </div>
+
+            {/* Mobile hamburger */}
+            <motion.button
+              type="button"
+              onClick={() => setMobileOpen((v) => !v)}
+              whileTap={{ scale: 0.9 }}
+              className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] text-white lg:hidden"
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {mobileOpen ? (
+                  <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
+                    <X size={20} />
+                  </motion.div>
+                ) : (
+                  <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
+                    <Menu size={20} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+
           </div>
         </div>
-      )}
-    </header>
+
+        {/* Bottom scan line */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: scrolled ? 1 : 0.35, opacity: scrolled ? 1 : 0.5 }}
+          transition={{ duration: 0.6 }}
+          className="absolute bottom-0 left-0 right-0 h-px origin-center bg-gradient-to-r from-transparent via-cyan-300/60 to-transparent"
+        />
+      </motion.header>
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={() => setMobileOpen(false)}
+              className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm lg:hidden"
+            />
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.97 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed left-4 right-4 top-24 z-50 overflow-hidden rounded-2xl border border-white/10 bg-dark-950/95 p-3 shadow-2xl backdrop-blur-2xl lg:hidden"
+            >
+              <div className="relative space-y-1">
+                {NAV_LINKS.map((link, index) => {
+                  const isActive = activeSection === link.id;
+                  return (
+                    <motion.button
+                      key={link.id}
+                      type="button"
+                      initial={{ opacity: 0, x: -15 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.035, duration: 0.3 }}
+                      onClick={() => scrollTo(link.id)}
+                      className={
+                        'group flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm transition-all ' +
+                        (isActive
+                          ? 'border border-cyan-300/20 bg-cyan-300/10 text-white'
+                          : 'border border-transparent text-white/60 hover:border-white/10 hover:bg-white/[0.05] hover:text-white')
+                      }
+                    >
+                      <span className="flex items-center gap-3">
+                        <span className={'h-1.5 w-1.5 rounded-full transition-all ' + (isActive ? 'bg-cyan-300 shadow-[0_0_10px_rgba(103,232,249,0.9)]' : 'bg-white/20 group-hover:bg-cyan-300')} />
+                        {link.name}
+                      </span>
+                      <ArrowUpRight size={15} className="opacity-40 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" />
+                    </motion.button>
+                  );
+                })}
+
+                <div className="my-2 h-px bg-white/10" />
+
+                <div className="grid grid-cols-3 gap-2">
+                  <motion.button type="button" onClick={() => openExternal(PERSONAL_INFO?.github)} whileTap={{ scale: 0.96 }} className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-3 text-xs text-white/70">
+                    <Github className="h-4 w-4" /> GitHub
+                  </motion.button>
+                  <motion.button type="button" onClick={() => openExternal(PERSONAL_INFO?.linkedin)} whileTap={{ scale: 0.96 }} className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-3 text-xs text-white/70">
+                    <Linkedin className="h-4 w-4" /> LinkedIn
+                  </motion.button>
+                  <motion.button type="button" onClick={() => { if (email) window.location.href = 'mailto:' + email; }} whileTap={{ scale: 0.96 }} className="flex items-center justify-center gap-2 rounded-xl border border-cyan-300/20 bg-cyan-300/10 px-3 py-3 text-xs text-cyan-100">
+                    <Mail size={15} /> Email
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
+
+export default Navbar;

@@ -5,7 +5,6 @@ export const PERSONAL_INFO = {
   positioning: "AI/ML Engineer | Python Developer | Full-Stack Developer | Data & Automation Enthusiast",
   headline: "Building practical AI-powered, data-driven, and full-stack applications with Python, Machine Learning, modern web technologies, and automation.",
   email: "kesgirgnaneshwar025@gmail.com",
-  phone: "9381271079",
   linkedin: "https://www.linkedin.com/in/keshgir-gnaneshwar",
   github: "https://github.com/Gnaneshwarspidey",
   location: "India",

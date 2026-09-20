@@ -1,74 +1,199 @@
-/**
- * Global motion system
- * ─────────────────────
- * Centralised animation constants and reusable Framer Motion
- * variant factories that respect `prefers-reduced-motion`.
- *
- * Usage:
- *   import { fadeUp, stagger, DURATION } from '../hooks/useMotion';
- *   <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} />
- */
+import { useReducedMotion } from "framer-motion";
 
-// ─── Durations (seconds) ──────────────────────────────────────
+/* =========================================
+   Motion Configuration
+========================================= */
+
 export const DURATION = {
-  fast:    0.15,
-  normal:  0.30,
-  section: 0.60,
-  slow:    0.90,
+  fast: 0.25,
+  normal: 0.4,
+  section: 0.7,
+  slow: 1,
 };
 
-// ─── Easings ─────────────────────────────────────────────────
 export const EASE = {
-  out:    [0.16, 1, 0.3, 1],   // expo-out – snappy, premium feel
-  in:     [0.4, 0, 1, 1],
-  inOut:  [0.4, 0, 0.2, 1],
+  out: [0.16, 1, 0.3, 1],
+  inOut: [0.65, 0, 0.35, 1],
 };
 
-// ─── Shared viewport options ──────────────────────────────────
-export const VIEWPORT = { once: true, margin: '-80px' };
+export const TRANSITION = {
+  fast: {
+    duration: DURATION.fast,
+    ease: EASE.out,
+  },
+  normal: {
+    duration: DURATION.normal,
+    ease: EASE.out,
+  },
+  section: {
+    duration: DURATION.section,
+    ease: EASE.out,
+  },
+};
 
-// ─── Variant factories ────────────────────────────────────────
+export const VIEWPORT = {
+  once: true,
+  amount: 0.2,
+};
 
-/** Fade up – the workhorse section reveal. */
+export const VIEWPORT_SECTION = {
+  once: true,
+  amount: 0.15,
+};
+
+/* =========================================
+   Animation Variants
+========================================= */
+
 export const fadeUp = {
-  hidden:  { opacity: 0, y: 24 },
+  hidden: {
+    opacity: 0,
+    y: 30,
+  },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: DURATION.section, ease: EASE.out },
+    transition: TRANSITION.section,
   },
 };
 
-/** Fade in (no vertical movement) */
-export const fadeIn = {
-  hidden:  { opacity: 0 },
+export const fadeDown = {
+  hidden: {
+    opacity: 0,
+    y: -30,
+  },
   visible: {
     opacity: 1,
-    transition: { duration: DURATION.normal, ease: EASE.out },
+    y: 0,
+    transition: TRANSITION.section,
   },
 };
 
-/** Scale-in: subtle pop for cards / pills */
+export const fadeIn = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: TRANSITION.normal,
+  },
+};
+
+export const slideLeft = {
+  hidden: {
+    opacity: 0,
+    x: 40,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: TRANSITION.section,
+  },
+};
+
+export const slideRight = {
+  hidden: {
+    opacity: 0,
+    x: -40,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: TRANSITION.section,
+  },
+};
+
 export const scaleIn = {
-  hidden:  { opacity: 0, scale: 0.95 },
+  hidden: {
+    opacity: 0,
+    scale: 0.9,
+  },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: DURATION.normal, ease: EASE.out },
+    transition: TRANSITION.section,
   },
 };
 
-/**
- * Stagger container – wraps children so they animate sequentially.
- * @param {number} staggerChildren  - seconds between each child
- * @param {number} delayChildren    - delay before first child starts
- */
-export const stagger = (staggerChildren = 0.1, delayChildren = 0) => ({
-  hidden:  {},
+/* =========================================
+   STAGGER (THIS FIXES YOUR ERROR)
+========================================= */
+
+export const stagger = (
+  staggerChildren = 0.08,
+  delayChildren = 0
+) => ({
+  hidden: {},
   visible: {
-    transition: { staggerChildren, delayChildren },
+    transition: {
+      staggerChildren,
+      delayChildren,
+    },
   },
 });
 
-/** Child variant for stagger containers (combines with fadeUp) */
 export const staggerChild = fadeUp;
+
+/* =========================================
+   Hover Presets
+========================================= */
+
+export const CARD_HOVER = {
+  y: -6,
+  scale: 1.02,
+  transition: TRANSITION.fast,
+};
+
+export const BUTTON_HOVER = {
+  y: -2,
+  scale: 1.03,
+  transition: TRANSITION.fast,
+};
+
+export const BUTTON_TAP = {
+  scale: 0.97,
+};
+
+/* =========================================
+   Floating Effects
+========================================= */
+
+export const FLOAT = {
+  y: [0, -8, 0],
+  transition: {
+    duration: 4,
+    repeat: Infinity,
+    ease: "easeInOut",
+  },
+};
+
+export const PULSE = {
+  scale: [1, 1.05, 1],
+  transition: {
+    duration: 2,
+    repeat: Infinity,
+    ease: "easeInOut",
+  },
+};
+
+/* =========================================
+   Hook
+========================================= */
+
+export const useMotion = () => {
+  const reduced = useReducedMotion();
+
+  return {
+    reduced,
+    variants: {
+      fadeUp: reduced ? fadeIn : fadeUp,
+      fadeDown: reduced ? fadeIn : fadeDown,
+      fadeIn,
+      slideLeft: reduced ? fadeIn : slideLeft,
+      slideRight: reduced ? fadeIn : slideRight,
+      scaleIn: reduced ? fadeIn : scaleIn,
+    },
+  };
+};
+
+export default useMotion;

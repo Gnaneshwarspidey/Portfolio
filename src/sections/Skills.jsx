@@ -72,13 +72,7 @@ export const Skills = () => {
         </motion.div>
 
         {/* Categories Grid */}
-        <motion.div
-          variants={stagger(0.1)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={VIEWPORT}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredCategories.map((category) => {
               const IconComponent = iconMap[category.icon] || Cpu;
@@ -86,10 +80,17 @@ export const Skills = () => {
               return (
                 <motion.div
                   key={category.id}
-                  variants={staggerChild}
                   layout
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-                  className="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between"
+                  transition={{ duration: 0.3 }}
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                    e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                  }}
+                  className="glass-card glass-card-hover cursor-spotlight p-6 rounded-2xl flex flex-col justify-between"
                 >
                   <div>
                     {/* Category Header */}
@@ -130,7 +131,7 @@ export const Skills = () => {
               );
             })}
           </AnimatePresence>
-        </motion.div>
+        </div>
 
       </div>
     </section>

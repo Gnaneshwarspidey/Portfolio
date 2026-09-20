@@ -1,198 +1,217 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { PERSONAL_INFO } from '../data/portfolioData';
-import profileImg from '../assets/profile.jpg';
-import { Github, Linkedin } from '../components/SocialIcons';
-import { 
-  ArrowRight, 
-  Mail, 
-  Terminal, 
-  Sparkles, 
-  BrainCircuit, 
-  CheckCircle2 
-} from 'lucide-react';
-import { fadeUp, scaleIn, stagger, staggerChild, DURATION, EASE, VIEWPORT } from '../hooks/useMotion';
+import React from "react";
+import { motion } from "framer-motion";
+import { ArrowDown, ArrowRight, Sparkles, Code2, Cpu, Layers3 } from "lucide-react";
+import { LightLines } from "../components/ui/light-lines";
+import { PERSONAL_INFO } from "../data/portfolioData";
+import { fadeUp, fadeDown, fadeIn, stagger, scaleIn, VIEWPORT, TRANSITION } from "../hooks/useMotion";
+import profileImg from "../assets/profile-hero.png";
 
-// Container – staggered reveal for the left column
-const heroContainer = stagger(0.1, 0.15);
+export function Hero() {
+  const scrollToProjects = () => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+  const scrollToAbout = () => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
 
-export const Hero = () => {
   return (
-    <section id="hero" className="relative min-h-screen pt-32 pb-20 flex items-center justify-center overflow-hidden">
-      {/* Background Decorative Gradients & Grid */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none"></div>
+    <section id="hero" className="relative min-h-screen overflow-hidden bg-dark-950">
 
-      {/* Ambient Glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-blue-600/15 blur-[120px] rounded-full pointer-events-none"></div>
-      <div className="absolute top-1/3 right-10 w-[350px] h-[300px] bg-cyan-600/10 blur-[100px] rounded-full pointer-events-none"></div>
+      {/* LightLines background */}
+      <LightLines
+        className="absolute inset-0 z-0"
+        gradientFrom="#020817"
+        gradientTo="#0a1628"
+        lineColor="#38bdf8"
+        lightColor="#7dd3fc"
+        linesOpacity={0.08}
+        lightsOpacity={0.85}
+        speedMultiplier={0.6}
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
-          {/* Left Column: Text & CTAs (7 cols) */}
+      {/* Overlays */}
+      <div className="absolute inset-0 z-[1] bg-dark-950/20" />
+      <div className="absolute left-[8%] top-[18%] z-[1] h-40 w-40 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
+      <div className="absolute right-[8%] top-[30%] z-[1] h-52 w-52 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
+
+      {/* Content — two column */}
+      <div className="relative z-[3] mx-auto flex min-h-screen max-w-7xl items-center px-6 pb-20 pt-32 sm:px-8 lg:px-12">
+        <div className="grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-2">
+
+          {/* LEFT — text */}
           <motion.div
-            variants={heroContainer}
+            variants={stagger(0.08)}
             initial="hidden"
             animate="visible"
-            className="lg:col-span-7 text-center lg:text-left"
           >
-            {/* Status Pill */}
-            <motion.div variants={staggerChild} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-dark-900/80 border border-slate-700/80 text-xs font-medium text-slate-300 shadow-sm mb-6">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            {/* Status badge */}
+            <motion.div
+              variants={fadeDown}
+              className="mb-7 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-black/30 px-4 py-2 text-sm text-cyan-200 backdrop-blur-xl"
+            >
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-60" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-cyan-400" />
               </span>
-              <span>{PERSONAL_INFO.status}</span>
+              <span>AI & ML Student</span>
+              <Sparkles className="h-4 w-4 text-cyan-300" />
             </motion.div>
 
-            {/* Name */}
-            <motion.h1 variants={staggerChild} className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 leading-[1.15]">
-              Hi, I'm <span className="gradient-accent">{PERSONAL_INFO.name}</span>
-            </motion.h1>
+            {/* Heading */}
+            <motion.div variants={fadeUp}>
+              <p className="mb-3 text-sm font-medium uppercase tracking-[0.35em] text-cyan-300/80">
+                Hello, I&apos;m
+              </p>
 
-            {/* Role & Profession Tagline */}
-            <motion.div variants={staggerChild} className="flex items-center justify-center lg:justify-start gap-2 text-slate-300 font-mono text-sm sm:text-base font-medium mb-5">
-              <Terminal className="w-4 h-4 text-blue-400" />
-              <span>{PERSONAL_INFO.roleSubtitle}</span>
+              <h1 className="text-5xl font-black leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl">
+                {PERSONAL_INFO.name}
+              </h1>
+
+              <div className="mt-5 flex flex-wrap items-center gap-3 text-xl font-semibold text-white/80 sm:text-2xl">
+                <span>{PERSONAL_INFO.role || "AI & ML Student"}</span>
+                <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.9)]" />
+                <span className="bg-gradient-to-r from-cyan-300 via-blue-300 to-violet-300 bg-clip-text text-transparent">
+                  Building Intelligent Experiences
+                </span>
+              </div>
             </motion.div>
 
-            {/* Headline / Supporting Text */}
-            <motion.p variants={staggerChild} className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-8 font-normal">
-              {PERSONAL_INFO.headline}
+            {/* Description */}
+            <motion.p
+              variants={fadeIn}
+              className="mt-7 max-w-xl text-base leading-7 text-white/65 sm:text-lg"
+            >
+              {PERSONAL_INFO.tagline ||
+                "I build intelligent, interactive and user-focused digital experiences using AI, machine learning and modern web technologies."}
             </motion.p>
 
-            {/* Key Skill Highlights Pills */}
-            <motion.div variants={staggerChild} className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-8">
-              {['AI & Machine Learning', 'Python Development', 'Full-Stack Web', 'Data & Automation'].map((pill) => (
-                <span key={pill} className="text-xs px-2.5 py-1 rounded-md bg-dark-850 border border-slate-800 text-slate-300 flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3 h-3 text-blue-400" />
-                  {pill}
-                </span>
-              ))}
+            {/* Capability cards */}
+            <motion.div
+              variants={scaleIn}
+              className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3"
+            >
+              {[
+                { icon: Cpu,    label: "AI / ML",      text: "Intelligent systems" },
+                { icon: Code2,  label: "Development",  text: "Modern web apps" },
+                { icon: Layers3,label: "Innovation",   text: "Interactive solutions" },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <motion.div
+                    key={item.label}
+                    whileHover={{ y: -6, scale: 1.02 }}
+                    transition={TRANSITION.spring}
+                    className="group rounded-2xl border border-white/10 bg-black/25 p-4 backdrop-blur-xl"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-xl border border-cyan-400/20 bg-cyan-400/10 p-2.5">
+                        <Icon className="h-5 w-5 text-cyan-300" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-white">{item.label}</p>
+                        <p className="text-xs text-white/45">{item.text}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </motion.div>
 
-            {/* CTAs */}
-            <motion.div variants={staggerChild} className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10">
-              <a
-                href="#projects"
-                className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold shadow-lg shadow-blue-600/25 transition-all active:scale-95 group"
-                aria-label="View my projects"
+            {/* Buttons */}
+            <motion.div variants={fadeUp} className="mt-9 flex flex-wrap gap-4">
+              <motion.button
+                type="button"
+                onClick={scrollToProjects}
+                whileHover={{ scale: 1.04, y: -3 }}
+                whileTap={{ scale: 0.97 }}
+                className="group inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 font-semibold text-dark-950 shadow-[0_0_30px_rgba(255,255,255,0.12)] transition"
               >
-                <span>View My Projects</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+                View My Work
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </motion.button>
 
-              <a
-                href="#contact"
-                className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-dark-900/90 hover:bg-dark-800 text-slate-200 hover:text-white text-sm font-semibold border border-slate-700/80 transition-all active:scale-95"
-                aria-label="Contact me"
+              <motion.button
+                type="button"
+                onClick={scrollToAbout}
+                whileHover={{ scale: 1.04, y: -3 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 font-semibold text-white backdrop-blur-xl transition hover:border-cyan-400/30 hover:bg-white/10"
               >
-                <Mail className="w-4 h-4 text-blue-400" />
-                <span>Contact Me</span>
-              </a>
+                Explore More
+              </motion.button>
             </motion.div>
 
-            {/* Social Links Bar */}
-            <motion.div variants={staggerChild} className="flex items-center justify-center lg:justify-start gap-5 pt-6 border-t border-slate-800/80">
-              <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">
-                Connect:
-              </span>
-              <a
-                href={PERSONAL_INFO.github}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-1.5 text-xs text-slate-300 hover:text-white transition-colors group"
-                aria-label="GitHub profile"
-              >
-                <Github className="w-4 h-4 text-slate-400 group-hover:text-blue-400 transition-colors" />
-                <span className="font-mono">GitHub</span>
-              </a>
-              <a
-                href={PERSONAL_INFO.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-1.5 text-xs text-slate-300 hover:text-white transition-colors group"
-                aria-label="LinkedIn profile"
-              >
-                <Linkedin className="w-4 h-4 text-slate-400 group-hover:text-blue-400 transition-colors" />
-                <span className="font-mono">LinkedIn</span>
-              </a>
+            {/* Scroll indicator */}
+            <motion.div
+              variants={fadeIn}
+              className="mt-14 flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-white/35"
+            >
+              <span>Scroll to explore</span>
+              <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}>
+                <ArrowDown className="h-4 w-4" />
+              </motion.div>
             </motion.div>
           </motion.div>
 
-          {/* Right Column: Headshot Photo Card (5 cols) */}
+          {/* RIGHT — profile photo */}
           <motion.div
-            variants={scaleIn}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.45, duration: DURATION.section, ease: EASE.out }}
-            className="lg:col-span-5 flex justify-center"
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+            className="hidden lg:flex items-center justify-center"
           >
-            <div className="relative w-full max-w-sm sm:max-w-md group">
-              
-              {/* Subtle Glowing Backdrop */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/30 via-indigo-600/30 to-cyan-600/30 rounded-3xl blur-xl opacity-60 group-hover:opacity-90 transition-opacity duration-500"></div>
-              
-              {/* Outer Card Container */}
-              <div className="relative rounded-2xl bg-dark-900 border border-slate-700/80 p-3.5 shadow-2xl overflow-hidden">
-                
-                {/* Photo Header Bar (Terminal style) */}
-                <div className="flex items-center justify-between pb-3 px-2 border-b border-slate-800/80 mb-3">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
-                  </div>
-                  <span className="text-[11px] font-mono text-slate-400">
-                    engineer_profile.ai
-                  </span>
-                  <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-                </div>
+            <div className="relative">
+              {/* Outer glow ring */}
+              <div className="absolute -inset-4 rounded-full bg-gradient-to-br from-cyan-400/20 via-blue-500/15 to-violet-500/20 blur-2xl" />
 
-                {/* Headshot Image Container */}
-                <div className="relative rounded-xl overflow-hidden bg-dark-950 aspect-[4/5]">
-                  <img
-                    src={profileImg}
-                    alt="Keshgir Gnaneshwar - AI/ML Engineer & Developer"
-                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                    loading="eager"
-                  />
-                  
-                  {/* Subtle Gradient Vignette at bottom */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-950/90 via-transparent to-transparent"></div>
+              {/* Rotating border */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+                className="absolute -inset-[3px] rounded-full bg-gradient-to-r from-cyan-400/60 via-blue-500/40 to-violet-500/60"
+                style={{ borderRadius: "50%" }}
+              />
 
-                  {/* Overlay Badge */}
-                  <div className="absolute bottom-3 left-3 right-3 p-3 rounded-lg bg-dark-900/90 backdrop-blur-md border border-slate-700/80">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="text-xs font-semibold text-white">Keshgir Gnaneshwar</div>
-                        <div className="text-[11px] text-blue-400 font-mono">B.E. AI & ML (Final Year)</div>
-                      </div>
-                      <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
-                        <BrainCircuit className="w-4 h-4" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              {/* Static inner ring */}
+              <div className="absolute -inset-[3px] rounded-full bg-dark-950" style={{ borderRadius: "50%" }} />
 
-                {/* Bottom Quick Specs */}
-                <div className="mt-3 grid grid-cols-2 gap-2 text-center text-xs font-mono">
-                  <div className="p-2 rounded-lg bg-dark-950/60 border border-slate-800 text-slate-300">
-                    <span className="text-slate-400 block text-[10px]">FOCUS</span>
-                    AI & Full-Stack
-                  </div>
-                  <div className="p-2 rounded-lg bg-dark-950/60 border border-slate-800 text-slate-300">
-                    <span className="text-slate-400 block text-[10px]">CORE LANG</span>
-                    Python & JS
-                  </div>
-                </div>
-
+              {/* Photo */}
+              <div className="relative h-80 w-80 overflow-hidden rounded-full border border-white/10 xl:h-96 xl:w-96">
+                <img
+                  src={profileImg}
+                  alt={PERSONAL_INFO.name}
+                  className="h-full w-full object-cover object-top"
+                />
+                {/* Subtle inner overlay */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-dark-950/40 via-transparent to-transparent" />
               </div>
+
+              {/* Floating badge — top right */}
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -right-4 top-8 flex items-center gap-2 rounded-2xl border border-cyan-400/20 bg-black/60 px-3 py-2 backdrop-blur-xl"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                </span>
+                <span className="text-xs font-mono font-semibold text-white">Available</span>
+              </motion.div>
+
+              {/* Floating badge — bottom left */}
+              <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                className="absolute -left-6 bottom-10 flex items-center gap-2 rounded-2xl border border-blue-400/20 bg-black/60 px-3 py-2 backdrop-blur-xl"
+              >
+                <Cpu className="h-3.5 w-3.5 text-cyan-400" />
+                <span className="text-xs font-mono font-semibold text-white">AI & ML</span>
+              </motion.div>
             </div>
           </motion.div>
 
         </div>
       </div>
+
+      {/* Bottom fade */}
+      <div className="absolute inset-x-0 bottom-0 z-[4] h-40 bg-gradient-to-t from-dark-950 to-transparent pointer-events-none" />
     </section>
   );
-};
+}
