@@ -31,8 +31,8 @@ export function Hero() {
       <div className="absolute right-[8%] top-[30%] z-[1] h-52 w-52 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
 
       {/* Content — two column */}
-      <div className="relative z-[3] mx-auto flex min-h-screen max-w-7xl items-center px-6 pb-20 pt-32 sm:px-8 lg:px-12">
-        <div className="grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-2">
+      <div className="relative z-[3] mx-auto flex min-h-screen max-w-7xl items-center px-6 pb-20 pt-28 sm:px-8 lg:px-12">
+        <div className="grid w-full grid-cols-1 items-center gap-10 lg:grid-cols-2">
 
           {/* LEFT — text */}
           <motion.div
@@ -154,7 +154,7 @@ export function Hero() {
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-            className="hidden lg:flex items-center justify-center"
+            className="flex items-center justify-center order-first lg:order-last"
           >
             <div className="relative">
               {/* Outer glow ring */}
@@ -172,7 +172,7 @@ export function Hero() {
               <div className="absolute -inset-[3px] rounded-full bg-dark-950" style={{ borderRadius: "50%" }} />
 
               {/* Photo */}
-              <div className="relative h-80 w-80 overflow-hidden rounded-full border border-white/10 xl:h-96 xl:w-96">
+              <div className="relative h-52 w-52 overflow-hidden rounded-full border border-white/10 sm:h-64 sm:w-64 xl:h-96 xl:w-96">
                 <img
                   src={profileImg}
                   alt={PERSONAL_INFO.name}
