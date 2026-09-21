@@ -269,14 +269,14 @@ export const Contact = () => {
                   <motion.button
                     whileTap={{ scale: 0.9 }}
                     onClick={() => handleCopy(PERSONAL_INFO.email)}
-                    className="ml-2 shrink-0 rounded-lg border border-slate-800 bg-dark-950 p-2 text-slate-400 transition-all hover:border-blue-500/30 hover:text-white"
+                    className="ml-2 shrink-0 inline-flex items-center gap-1.5 rounded-xl border border-slate-800 bg-dark-950 px-3 py-2.5 text-xs font-semibold text-slate-400 transition-all hover:border-blue-500/30 hover:text-white"
                     title="Copy Email"
                     aria-label="Copy Email"
                   >
                     {copiedEmail ? (
-                      <Check className="h-4 w-4 text-emerald-400" />
+                      <><Check className="h-4 w-4 text-emerald-400" /><span className="text-emerald-400">Copied</span></>
                     ) : (
-                      <Copy className="h-4 w-4" />
+                      <><Copy className="h-4 w-4" /><span>Copy</span></>
                     )}
                   </motion.button>
                 </div>
@@ -533,7 +533,7 @@ export const Contact = () => {
                 <div className="mt-4 flex items-center justify-center gap-2 text-center">
                   <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
 
-                  <p className="font-mono text-[11px] leading-relaxed text-slate-600">
+                  <p className="font-mono text-xs leading-relaxed text-slate-600">
                     Opens your default email client and sends directly to{' '}
                     {PERSONAL_INFO.email}
                   </p>

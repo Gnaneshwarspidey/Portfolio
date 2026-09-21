@@ -120,7 +120,7 @@ export function Hero() {
                 onClick={scrollToProjects}
                 whileHover={{ scale: 1.04, y: -3 }}
                 whileTap={{ scale: 0.97 }}
-                className="group inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 font-semibold text-dark-950 shadow-[0_0_30px_rgba(255,255,255,0.12)] transition"
+                className="group inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-semibold text-white shadow-[0_0_30px_rgba(37,99,235,0.35)] transition hover:bg-blue-500"
               >
                 View My Work
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -140,7 +140,7 @@ export function Hero() {
             {/* Scroll indicator */}
             <motion.div
               variants={fadeIn}
-              className="mt-14 flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-white/35"
+              className="mt-14 flex items-center gap-3 text-xs tracking-[0.3em] text-white/35"
             >
               <span>Scroll to explore</span>
               <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}>

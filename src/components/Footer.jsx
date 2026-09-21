@@ -102,7 +102,7 @@ const Footer = () => {
                 <h3 className="font-bold text-white text-lg">
                   {PERSONAL_INFO.name}
                 </h3>
-                <p className="text-[11px] font-mono text-slate-400">
+                <p className="text-xs font-mono text-slate-400">
                   {PERSONAL_INFO.roleSubtitle}
                 </p>
               </div>
@@ -194,7 +194,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="pt-8 pb-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <p className="text-xs text-slate-500">
               © 2026 {PERSONAL_INFO.name}. All rights reserved.

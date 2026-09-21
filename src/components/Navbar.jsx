@@ -115,32 +115,10 @@ export const Navbar = () => {
             <div className="hidden items-center gap-2 lg:flex">
               <motion.button
                 type="button"
-                onClick={() => openExternal(PERSONAL_INFO?.github)}
-                whileHover={{ y: -2, scale: 1.04 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.035] text-white/70 transition-all hover:border-white/20 hover:bg-white/[0.08] hover:text-white"
-                aria-label="GitHub"
-              >
-                <Github className="h-4 w-4" />
-              </motion.button>
-
-              <motion.button
-                type="button"
-                onClick={() => openExternal(PERSONAL_INFO?.linkedin)}
-                whileHover={{ y: -2, scale: 1.04 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.035] text-white/70 transition-all hover:border-white/20 hover:bg-white/[0.08] hover:text-white"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="h-4 w-4" />
-              </motion.button>
-
-              <motion.button
-                type="button"
                 onClick={() => { if (email) window.location.href = 'mailto:' + email; }}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
-                className="group ml-1 flex items-center gap-2 rounded-xl border border-cyan-300/25 bg-cyan-300/10 px-4 py-2.5 text-xs font-semibold text-cyan-100 shadow-[0_0_25px_rgba(34,211,238,0.08)] transition-all hover:border-cyan-300/50 hover:bg-cyan-300/15"
+                className="group ml-1 flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-xs font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:bg-blue-500"
               >
                 <Mail size={14} />
                 <span>Let&apos;s Connect</span>

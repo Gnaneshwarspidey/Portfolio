@@ -387,14 +387,16 @@ const ExperienceCard = ({ exp, index }) => {
 
 
           {/* Divider */}
-          <div className="my-7 h-px bg-gradient-to-r from-white/[0.09] via-white/[0.04] to-transparent" />
+          <div className="my-5 h-px bg-gradient-to-r from-white/[0.09] via-white/[0.04] to-transparent" />
 
+          {/* Two-column body layout */}
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
 
           {/* -----------------------------------
               Summary
           ------------------------------------ */}
 
-          <div className="relative mb-7">
+          <div className="relative">
 
             <div className="absolute -left-1 top-0 h-full w-px bg-gradient-to-b from-cyan-400/40 via-blue-500/20 to-transparent" />
 
@@ -409,34 +411,25 @@ const ExperienceCard = ({ exp, index }) => {
               Contributions
           ------------------------------------ */}
 
-          <div className="mb-7">
+          <div>
 
-            <div className="mb-4 flex items-center gap-2">
+            <div className="mb-3 flex items-center gap-2">
               <Code2 className="h-4 w-4 text-cyan-400" />
 
-              <h4 className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+              <h3 className="font-mono text-xs font-semibold tracking-[0.18em] text-slate-400">
                 Key Workflows & Contributions
-              </h4>
+              </h3>
             </div>
 
-            <div className="grid gap-2.5 sm:grid-cols-2">
+            <div className="grid gap-2">
 
               {exp.responsibilities.map((resp, idx) => (
                 <motion.div
                   key={idx}
                   initial={{ opacity: 0, x: -8 }}
-                  whileInView={{
-                    opacity: 1,
-                    x: 0,
-                  }}
-                  viewport={{
-                    once: true,
-                    amount: 0.4,
-                  }}
-                  transition={{
-                    delay: idx * 0.06,
-                    duration: 0.35,
-                  }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ delay: idx * 0.06, duration: 0.35 }}
                   className="
                     group/item
                     flex
@@ -466,7 +459,6 @@ const ExperienceCard = ({ exp, index }) => {
                       group-hover/item:drop-shadow-[0_0_6px_rgba(34,211,238,0.7)]
                     "
                   />
-
                   <span className="text-xs leading-relaxed text-slate-300 sm:text-sm">
                     {resp}
                   </span>
@@ -475,6 +467,8 @@ const ExperienceCard = ({ exp, index }) => {
 
             </div>
           </div>
+
+          </div>{/* end two-column body */}
 
 
           {/* -----------------------------------
@@ -486,7 +480,7 @@ const ExperienceCard = ({ exp, index }) => {
             <div className="mb-3 flex items-center gap-2">
               <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
 
-              <span className="font-mono text-xs uppercase tracking-[0.18em] text-slate-500">
+              <span className="font-mono text-xs tracking-[0.18em] text-slate-500">
                 Technology Environment
               </span>
             </div>
@@ -578,7 +572,7 @@ export const Experience = () => {
         border-y
         border-white/[0.06]
         bg-dark-950
-        py-28
+        py-20
       "
     >
 

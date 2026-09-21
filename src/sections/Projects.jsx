@@ -364,16 +364,18 @@ const ProjectCard = ({
               rel="noreferrer"
               onClick={(event) => event.stopPropagation()}
               className="
-                w-9
-                h-9
-                rounded-xl
                 flex
                 items-center
-                justify-center
+                gap-1.5
+                px-3
+                py-2
+                rounded-xl
                 bg-white/[0.04]
                 border
                 border-white/[0.08]
                 text-white/50
+                text-xs
+                font-semibold
                 hover:text-white
                 hover:bg-white/[0.08]
                 hover:border-white/20
@@ -383,6 +385,7 @@ const ProjectCard = ({
               aria-label={`View ${project.title} GitHub repository`}
             >
               <Github className="w-4 h-4" />
+              Code
             </a>
 
           </div>

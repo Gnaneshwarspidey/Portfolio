@@ -212,9 +212,9 @@ const EducationCard = () => {
           {/* Focus areas */}
           <div>
             <div className="mb-4 flex items-center justify-between">
-              <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
+              <h3 className="text-xs font-mono font-semibold tracking-wider text-slate-400">
                 Key Academic & Applied Focus Areas
-              </h4>
+              </h3>
 
               <span className="hidden font-mono text-xs text-slate-600 sm:block">
                 {String(EDUCATION.focusAreas.length).padStart(2, '0')} AREAS

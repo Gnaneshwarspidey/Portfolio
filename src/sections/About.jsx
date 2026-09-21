@@ -506,14 +506,8 @@ export const About = () => {
 
                 <div className="mb-4 flex items-center justify-between">
 
-                  <div>
-                    <div className="font-mono text-xs uppercase tracking-[0.18em] text-slate-500">
-                      // Core Competency Layers
-                    </div>
-
-                    <div className="mt-1 text-xs text-slate-600">
-                      Technical stack architecture
-                    </div>
+                  <div className="text-xs font-semibold text-slate-400">
+                    Core stack
                   </div>
 
                   <Cpu className="h-4 w-4 text-cyan-400/50" />
@@ -649,7 +643,7 @@ export const About = () => {
             <div className="mb-4 flex items-center justify-between px-1">
 
               <div>
-                <span className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                <span className="font-mono text-xs font-semibold tracking-[0.18em] text-slate-500">
                   What I Build & Deliver
                 </span>
               </div>
@@ -757,10 +751,6 @@ export const About = () => {
 
                       </div>
 
-                      <span className="font-mono text-[11px] text-slate-700">
-                        0{index + 1}
-                      </span>
-
                     </div>
 
 
@@ -768,7 +758,7 @@ export const About = () => {
 
                       <div className="mb-1 flex items-center justify-between gap-3">
 
-                        <h4
+                        <h3
                           className="
                             text-sm
                             font-semibold
@@ -779,7 +769,7 @@ export const About = () => {
                           "
                         >
                           {cap.title}
-                        </h4>
+                        </h3>
 
                         <ArrowUpRight
                           className="
@@ -882,11 +872,11 @@ export const About = () => {
                 "
               />
 
-              <div className="relative z-10 flex items-center justify-between gap-4">
+              <div className="relative z-10 flex flex-col items-center gap-4 text-center">
 
                 <div>
 
-                  <div className="mb-1 flex items-center gap-2">
+                  <div className="mb-1 flex items-center justify-center gap-2">
 
                     <span className="relative flex h-2 w-2">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-40" />
@@ -913,33 +903,30 @@ export const About = () => {
                 <a
                   href="#contact"
                   className="
-                    flex
-                    shrink-0
+                    inline-flex
                     items-center
                     gap-2
                     rounded-xl
-                    border
-                    border-cyan-400/20
-                    bg-cyan-400/10
-                    px-4
-                    py-2.5
-                    text-xs
+                    bg-blue-600
+                    px-6
+                    py-3
+                    text-sm
                     font-semibold
-                    text-cyan-300
+                    text-white
+                    shadow-lg
+                    shadow-blue-600/25
                     transition-all
                     duration-300
-                    hover:border-cyan-400/40
-                    hover:bg-cyan-400/15
-                    hover:text-white
-                    hover:shadow-[0_0_25px_rgba(34,211,238,0.12)]
+                    hover:bg-blue-500
+                    hover:-translate-y-0.5
                   "
                 >
                   Get in touch
 
                   <ArrowRight
                     className="
-                      h-3.5
-                      w-3.5
+                      h-4
+                      w-4
                       transition-transform
                       duration-300
                       group-hover:translate-x-1

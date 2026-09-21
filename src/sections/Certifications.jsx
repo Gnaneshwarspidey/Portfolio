@@ -190,9 +190,7 @@ const CertificationCard = ({ cert, index, IconComponent }) => {
                   </div>
 
                   <div>
-                    <p className="text-xs font-mono uppercase tracking-wider text-slate-500">
-                      Credential Status
-                    </p>
+                    <p className="text-xs font-mono tracking-wider text-slate-500">Credential Status</p>
                     <p className="mt-0.5 text-xs font-semibold text-slate-200">
                       Authenticated Program
                     </p>
@@ -330,9 +328,7 @@ export const Certifications = () => {
                   <p className="text-xs font-semibold text-white">
                     Continuous Learning
                   </p>
-                  <p className="text-[11px] text-slate-500">
-                    Building knowledge across emerging technologies
-                  </p>
+                  <p className="text-xs text-slate-500">Building knowledge across emerging technologies</p>
                 </div>
               </div>
 

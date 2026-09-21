@@ -126,6 +126,7 @@ export function SpotlightNavbar({
                             <a
                                 href={item.href}
                                 data-index={idx}
+                                aria-current={activeIndex === idx ? 'page' : undefined}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     handleItemClick(item, idx);
