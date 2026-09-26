@@ -18,44 +18,16 @@ import {
 import { FlipCard } from '../components/ui/flip-card';
 
 const CertificationCard = ({ cert, index, IconComponent }) => {
-  const cardRef = useRef(null);
-  const [spotlight, setSpotlight] = useState({ x: 50, y: 50 });
-
-  const handleMouseMove = (e) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    setSpotlight({
-      x: (x / rect.width) * 100,
-      y: (y / rect.height) * 100,
-    });
-  };
-
   const FrontCard = (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      className="group relative h-full min-h-[300px]"
-    >
+    <div className="group relative h-full min-h-[300px]">
       {/* Animated Gradient Border */}
       <div className="absolute -inset-[1px] rounded-[1.05rem] bg-gradient-to-r from-blue-500/0 via-cyan-400/0 to-indigo-500/0 opacity-0 blur-[2px] transition-all duration-500 group-hover:from-blue-500/70 group-hover:via-cyan-400/60 group-hover:to-indigo-500/70 group-hover:opacity-100" />
 
       {/* Card */}
       <div className="relative h-full overflow-hidden rounded-2xl border border-slate-800/90 bg-dark-900/90 backdrop-blur-xl flex flex-col justify-between">
         
-        {/* Cursor Spotlight */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-          style={{
-            background: `radial-gradient(
-              280px circle at ${spotlight.x}% ${spotlight.y}%,
-              rgba(59, 130, 246, 0.14),
-              transparent 70%
-            )`,
-          }}
-        />
+        {/* Cursor Spotlight Effect */}
+        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(280px_circle_at_center,rgba(59,130,246,0.14),transparent_70%)]" />
 
         {/* Top Grid */}
         <div

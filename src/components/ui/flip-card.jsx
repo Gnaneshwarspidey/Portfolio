@@ -14,32 +14,42 @@ export const FlipCard = ({
 
   return (
     <div
-      className={`group relative perspective-1000 w-full min-h-[320px] h-full ${containerClassName}`}
+      className={`group relative perspective-1000 w-full min-h-[320px] h-full cursor-pointer select-none ${containerClassName}`}
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
       onClick={() => setIsFlipped((prev) => !prev)}
       style={{ perspective: 1000 }}
     >
       <motion.div
-        className={`relative w-full h-full min-h-[320px] duration-700 ease-in-out ${className}`}
+        className={`relative w-full h-full min-h-[320px] will-change-transform ${className}`}
         style={{ transformStyle: 'preserve-3d' }}
         animate={{
           rotateY: isHorizontal ? (isFlipped ? 180 : 0) : 0,
           rotateX: !isHorizontal ? (isFlipped ? 180 : 0) : 0,
         }}
-        transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+        transition={{
+          duration: 0.5,
+          ease: [0.16, 1, 0.3, 1],
+        }}
       >
         {/* Front Side */}
         <div
-          className="absolute inset-0 w-full h-full backface-hidden"
-          style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+          className={`absolute inset-0 w-full h-full backface-hidden transition-opacity duration-300 ${
+            isFlipped ? 'pointer-events-none' : 'pointer-events-auto'
+          }`}
+          style={{
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+          }}
         >
           {front}
         </div>
 
         {/* Back Side */}
         <div
-          className="absolute inset-0 w-full h-full backface-hidden"
+          className={`absolute inset-0 w-full h-full backface-hidden transition-opacity duration-300 ${
+            !isFlipped ? 'pointer-events-none' : 'pointer-events-auto'
+          }`}
           style={{
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
