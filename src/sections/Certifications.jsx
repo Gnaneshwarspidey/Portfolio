@@ -209,7 +209,7 @@ const CertificationCard = ({ cert, index, IconComponent }) => {
   );
 
   return (
-    <motion.div variants={staggerChild} className="h-full">
+    <motion.div variants={staggerChild} className="h-full min-h-[320px]">
       <FlipCard front={FrontCard} back={BackCard} />
     </motion.div>
   );

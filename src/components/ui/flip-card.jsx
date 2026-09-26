@@ -14,14 +14,14 @@ export const FlipCard = ({
 
   return (
     <div
-      className={`group relative perspective-1000 w-full h-full ${containerClassName}`}
+      className={`group relative perspective-1000 w-full min-h-[320px] h-full ${containerClassName}`}
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
       onClick={() => setIsFlipped((prev) => !prev)}
       style={{ perspective: 1000 }}
     >
       <motion.div
-        className={`relative w-full h-full duration-700 ease-in-out ${className}`}
+        className={`relative w-full h-full min-h-[320px] duration-700 ease-in-out ${className}`}
         style={{ transformStyle: 'preserve-3d' }}
         animate={{
           rotateY: isHorizontal ? (isFlipped ? 180 : 0) : 0,
