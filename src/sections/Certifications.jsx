@@ -15,64 +15,35 @@ import {
   ScanLine,
 } from 'lucide-react';
 
+import { FlipCard } from '../components/ui/flip-card';
+
 const CertificationCard = ({ cert, index, IconComponent }) => {
   const cardRef = useRef(null);
-  const [transform, setTransform] = useState('');
-  const [spotlight, setSpotlight] = useState({
-    x: 50,
-    y: 50,
-  });
+  const [spotlight, setSpotlight] = useState({ x: 50, y: 50 });
 
   const handleMouseMove = (e) => {
     const card = cardRef.current;
     if (!card) return;
-
     const rect = card.getBoundingClientRect();
-
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-
-    const rotateY = ((x / rect.width) - 0.5) * 8;
-    const rotateX = ((y / rect.height) - 0.5) * -8;
-
-    setTransform(
-      `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(4px)`
-    );
-
     setSpotlight({
       x: (x / rect.width) * 100,
       y: (y / rect.height) * 100,
     });
   };
 
-  const handleMouseLeave = () => {
-    setTransform(
-      'perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px)'
-    );
-
-    setSpotlight({
-      x: 50,
-      y: 50,
-    });
-  };
-
-  return (
-    <motion.div
+  const FrontCard = (
+    <div
       ref={cardRef}
-      variants={staggerChild}
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        transform,
-        transition: 'transform 180ms ease-out',
-      }}
-      className="group relative h-full"
+      className="group relative h-full min-h-[300px]"
     >
       {/* Animated Gradient Border */}
       <div className="absolute -inset-[1px] rounded-[1.05rem] bg-gradient-to-r from-blue-500/0 via-cyan-400/0 to-indigo-500/0 opacity-0 blur-[2px] transition-all duration-500 group-hover:from-blue-500/70 group-hover:via-cyan-400/60 group-hover:to-indigo-500/70 group-hover:opacity-100" />
 
       {/* Card */}
-      <div className="relative h-full overflow-hidden rounded-2xl border border-slate-800/90 bg-dark-900/80 backdrop-blur-xl">
+      <div className="relative h-full overflow-hidden rounded-2xl border border-slate-800/90 bg-dark-900/90 backdrop-blur-xl flex flex-col justify-between">
         
         {/* Cursor Spotlight */}
         <div
@@ -99,32 +70,20 @@ const CertificationCard = ({ cert, index, IconComponent }) => {
         {/* Scan Line */}
         <motion.div
           className="pointer-events-none absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/70 to-transparent opacity-0 group-hover:opacity-100"
-          animate={{
-            y: ['0%', '900%'],
-          }}
-          transition={{
-            duration: 2.8,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
+          animate={{ y: ['0%', '900%'] }}
+          transition={{ duration: 2.8, repeat: Infinity, ease: 'linear' }}
         />
 
         <div className="relative z-10 p-6 sm:p-7 flex h-full flex-col justify-between">
-          
-          {/* Header */}
           <div>
             <div className="flex items-center justify-between gap-3 mb-6">
-              
-              {/* Certificate Number */}
               <div className="flex items-center gap-2">
                 <span className="text-xs font-mono tracking-widest text-blue-400/80">
                   CERT_{String(index + 1).padStart(2, '0')}
                 </span>
-
                 <div className="h-px w-8 bg-slate-800" />
               </div>
 
-              {/* Verified Badge */}
               <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-2.5 py-1">
                 <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
                 <span className="text-xs font-mono font-semibold uppercase tracking-wider text-emerald-400">
@@ -133,25 +92,10 @@ const CertificationCard = ({ cert, index, IconComponent }) => {
               </div>
             </div>
 
-            {/* Icon + Issuer */}
             <div className="flex items-start gap-4">
-              <motion.div
-                whileHover={{
-                  scale: 1.1,
-                  rotate: 5,
-                }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 300,
-                  damping: 15,
-                }}
-                className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-blue-500/25 bg-blue-500/10 text-blue-400 shadow-lg shadow-blue-500/5"
-              >
-                {/* Icon Glow */}
-                <div className="absolute inset-0 rounded-2xl bg-blue-500/10 blur-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-
+              <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-blue-500/25 bg-blue-500/10 text-blue-400 shadow-lg shadow-blue-500/5">
                 <IconComponent className="relative z-10 h-6 w-6" />
-              </motion.div>
+              </div>
 
               <div className="min-w-0">
                 <span className="mb-1.5 inline-flex items-center rounded-md border border-slate-800 bg-dark-950 px-2 py-1 text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
@@ -168,25 +112,11 @@ const CertificationCard = ({ cert, index, IconComponent }) => {
               </div>
             </div>
 
-            {/* Credential Visualization */}
             <div className="relative mt-7 overflow-hidden rounded-xl border border-slate-800/80 bg-dark-950/70 p-4">
               <div className="flex items-center justify-between">
-                
                 <div className="flex items-center gap-3">
                   <div className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-blue-500/20 bg-blue-500/5">
                     <BadgeCheck className="h-4 w-4 text-blue-400" />
-
-                    <motion.div
-                      className="absolute inset-0 rounded-lg border border-blue-400/30"
-                      animate={{
-                        scale: [1, 1.15, 1],
-                        opacity: [0.3, 0, 0.3],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                      }}
-                    />
                   </div>
 
                   <div>
@@ -197,55 +127,90 @@ const CertificationCard = ({ cert, index, IconComponent }) => {
                   </div>
                 </div>
 
-                <ScanLine className="h-4 w-4 text-slate-600 transition-colors duration-300 group-hover:text-blue-400" />
+                <ScanLine className="h-4 w-4 text-slate-600 group-hover:text-blue-400 transition-colors" />
               </div>
 
-              {/* Progress-style line */}
               <div className="mt-4 h-px overflow-hidden bg-slate-800">
                 <motion.div
                   className="h-full bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500"
                   initial={{ width: '0%' }}
                   whileInView={{ width: '100%' }}
                   viewport={{ once: true }}
-                  transition={{
-                    duration: 1.2,
-                    delay: index * 0.12,
-                    ease: 'easeOut',
-                  }}
+                  transition={{ duration: 1.2, delay: index * 0.12, ease: 'easeOut' }}
                 />
               </div>
             </div>
           </div>
 
-          {/* Footer */}
-          <div className="mt-6 border-t border-slate-800/70 pt-4">
-            <div className="flex items-center justify-between gap-3">
-              
-              <div>
-                <p className="text-xs font-mono uppercase tracking-wider text-slate-500">
-                  Issued By
-                </p>
-                <p className="mt-1 text-xs font-semibold text-slate-300">
-                  {cert.issuer}
-                </p>
-              </div>
-
-              <motion.div
-                whileHover={{
-                  scale: 1.08,
-                  rotate: 5,
-                }}
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-800 bg-dark-950 text-slate-500 transition-all duration-300 group-hover:border-blue-500/30 group-hover:text-blue-400"
-              >
-                <ArrowUpRight className="h-4 w-4" />
-              </motion.div>
+          <div className="mt-6 border-t border-slate-800/70 pt-4 flex items-center justify-between">
+            <div>
+              <p className="text-xs font-mono uppercase tracking-wider text-slate-500">
+                Issued By
+              </p>
+              <p className="mt-1 text-xs font-semibold text-slate-300">
+                {cert.issuer}
+              </p>
             </div>
+
+            <span className="text-[11px] font-mono text-blue-400 flex items-center gap-1 group-hover:underline">
+              Flip Card <ArrowUpRight className="h-3.5 w-3.5" />
+            </span>
           </div>
         </div>
-
-        {/* Bottom Glow */}
-        <div className="pointer-events-none absolute -bottom-20 left-1/2 h-32 w-2/3 -translate-x-1/2 rounded-full bg-blue-500/10 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </div>
+    </div>
+  );
+
+  const BackCard = (
+    <div className="relative h-full min-h-[300px] overflow-hidden rounded-2xl border border-blue-500/30 bg-dark-950 p-6 sm:p-7 flex flex-col justify-between shadow-2xl">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-3xl pointer-events-none" />
+
+      <div>
+        <div className="flex items-center justify-between border-b border-slate-800/80 pb-4 mb-4">
+          <div className="flex items-center gap-2">
+            <BadgeCheck className="h-5 w-5 text-blue-400" />
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-white">
+              Official Credential Details
+            </span>
+          </div>
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
+            ID: {cert.id}
+          </span>
+        </div>
+
+        <h4 className="text-base font-bold text-white mb-2">{cert.title}</h4>
+        <p className="text-xs text-slate-300 leading-relaxed mb-4">
+          Specialized certification verified under {cert.issuer} professional standards in {cert.category}.
+        </p>
+
+        <div className="space-y-2 text-xs font-mono">
+          <div className="flex items-center justify-between p-2 rounded bg-dark-900 border border-slate-800">
+            <span className="text-slate-400">Issuer:</span>
+            <span className="text-blue-300 font-semibold">{cert.issuer}</span>
+          </div>
+          <div className="flex items-center justify-between p-2 rounded bg-dark-900 border border-slate-800">
+            <span className="text-slate-400">Verification:</span>
+            <span className="text-emerald-400 font-semibold flex items-center gap-1">
+              <CheckCircle2 className="w-3 h-3" /> Confirmed
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+        <span className="text-[11px] font-mono text-slate-400">
+          Tap / Hover to return
+        </span>
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white shadow-md">
+          <ArrowUpRight className="h-4 w-4" />
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <motion.div variants={staggerChild} className="h-full">
+      <FlipCard front={FrontCard} back={BackCard} />
     </motion.div>
   );
 };

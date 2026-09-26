@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { CardContainer, CardBody, CardItem } from '../components/ui/card-3d';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionHeading } from '../components/SectionHeading';
 import { PROJECTS } from '../data/portfolioData';
@@ -39,335 +38,381 @@ const ProjectCard = ({
   index,
   onSelect,
 }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
+  const cardRef = useRef(null);
 
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
+  const [transform, setTransform] = useState(
+    'perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1)'
+  );
+
+  const [mousePosition, setMousePosition] = useState({
+    x: 50,
+    y: 50,
+  });
+
+  const handleMouseMove = (event) => {
+    if (!cardRef.current) return;
+
+    const rect = cardRef.current.getBoundingClientRect();
+
+    const x =
+      ((event.clientX - rect.left) / rect.width) * 100;
+
+    const y =
+      ((event.clientY - rect.top) / rect.height) * 100;
+
     setMousePosition({
-      x: ((e.clientX - rect.left) / rect.width) * 100,
-      y: ((e.clientY - rect.top) / rect.height) * 100,
+      x,
+      y,
+    });
+
+    const rotateY = (x - 50) / 9;
+    const rotateX = (50 - y) / 9;
+
+    setTransform(
+      `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.025)`
+    );
+  };
+
+  const handleMouseLeave = () => {
+    setTransform(
+      'perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1)'
+    );
+
+    setMousePosition({
+      x: 50,
+      y: 50,
     });
   };
 
-  const handleMouseLeave = () => setMousePosition({ x: 50, y: 50 });
-
   return (
-    /* ── CardContainer = perspective wrapper + rotateX/Y on mouse move ── */
-    <CardContainer
-      containerClass="p-0 w-full h-full"
-      className="w-full h-full"
+    <motion.article
+      ref={cardRef}
+      variants={staggerChild}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transform,
+        transformStyle: 'preserve-3d',
+      }}
+      className="
+        group
+        relative
+        h-full
+        rounded-3xl
+        transition-transform
+        duration-200
+        ease-out
+        will-change-transform
+      "
     >
-      {/* ── CardBody = preserve-3d surface ── */}
-      <CardBody className="w-full h-full relative group">
 
-        <motion.div
-          variants={staggerChild}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
+      {/* =================================================
+          OUTER GLOW
+      ================================================= */}
+      <div
+        className="
+          absolute
+          -inset-[1px]
+          rounded-3xl
+          opacity-0
+          group-hover:opacity-100
+          transition-opacity
+          duration-500
+          bg-gradient-to-r
+          from-cyan-400/50
+          via-blue-500/40
+          to-purple-500/50
+          blur-[1px]
+        "
+      />
+
+      {/* =================================================
+          CARD
+      ================================================= */}
+      <div
+        className="
+          relative
+          h-full
+          overflow-hidden
+          rounded-3xl
+          border
+          border-white/[0.10]
+          bg-dark-950/75
+          backdrop-blur-xl
+          shadow-2xl
+          transition-all
+          duration-500
+          group-hover:border-white/[0.20]
+          group-hover:shadow-blue-500/10
+        "
+      >
+
+        {/* Cursor spotlight */}
+        <div
           className="
-            group
-            relative
-            h-full
-            rounded-3xl
-            transition-transform
-            duration-200
-            ease-out
-            will-change-transform
+            pointer-events-none
+            absolute
+            inset-0
+            z-20
+            opacity-0
+            group-hover:opacity-100
+            transition-opacity
+            duration-300
           "
-        >
-          {/* Outer glow */}
+          style={{
+            background: `radial-gradient(
+              350px circle at ${mousePosition.x}% ${mousePosition.y}%,
+              rgba(96,165,250,0.13),
+              transparent 55%
+            )`,
+          }}
+        />
+
+        {/* =================================================
+            PROJECT VISUAL
+        ================================================= */}
+        <div className="relative h-56 sm:h-64 overflow-hidden">
+
+          <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
+            <img
+              src={PROJECT_IMAGES[project.id]}
+              alt={project.title}
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* Visual overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent opacity-80" />
+
+          {/* Number */}
+          <div className="absolute top-4 left-4 z-10">
+            <div
+              className="
+                flex
+                items-center
+                justify-center
+                w-8
+                h-8
+                rounded-full
+                bg-black/40
+                backdrop-blur-xl
+                border
+                border-white/10
+              "
+            >
+              <span className="text-xs font-mono text-cyan-300">
+                {index + 1}
+              </span>
+            </div>
+          </div>
+
+          {/* Hover icon */}
           <div
             className="
               absolute
-              -inset-[1px]
-              rounded-3xl
+              bottom-4
+              right-4
+              z-10
+              w-10
+              h-10
+              rounded-full
+              bg-white
+              text-black
+              flex
+              items-center
+              justify-center
               opacity-0
+              translate-y-3
               group-hover:opacity-100
-              transition-opacity
-              duration-500
-              bg-gradient-to-r
-              from-cyan-400/50
-              via-blue-500/40
-              to-purple-500/50
-              blur-[1px]
-            "
-          />
-
-          {/* Card surface */}
-          <div
-            className="
-              relative
-              h-full
-              overflow-hidden
-              rounded-3xl
-              border
-              border-white/[0.10]
-              bg-dark-950/75
-              backdrop-blur-xl
-              shadow-2xl
+              group-hover:translate-y-0
               transition-all
-              duration-500
-              group-hover:border-white/[0.20]
-              group-hover:shadow-blue-500/10
+              duration-300
             "
           >
-            {/* Cursor spotlight */}
-            <div
-              className="
-                pointer-events-none
-                absolute
-                inset-0
-                z-20
-                opacity-0
-                group-hover:opacity-100
-                transition-opacity
-                duration-300
-              "
-              style={{
-                background: `radial-gradient(
-                  350px circle at ${mousePosition.x}% ${mousePosition.y}%,
-                  rgba(96,165,250,0.13),
-                  transparent 55%
-                )`,
-              }}
-            />
+            <ArrowUpRight className="w-4 h-4" />
+          </div>
+        </div>
 
-            {/* ── CardItem: image lifted to Z=0 (base layer) ── */}
-            <CardItem translateZ={0} className="w-full">
-              <div className="relative h-56 sm:h-64 overflow-hidden">
-                <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
-                  <img
-                    src={PROJECT_IMAGES[project.id]}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+        {/* =================================================
+            CONTENT
+        ================================================= */}
+        <div
+          className="relative z-10 p-6"
+          style={{
+            transform: 'translateZ(25px)',
+          }}
+        >
 
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent opacity-80" />
+          {/* Title */}
+          <h3
+            className="
+              text-xl
+              sm:text-2xl
+              font-bold
+              text-white
+              mb-2
+              tracking-tight
+              group-hover:text-cyan-200
+              transition-colors
+              duration-300
+            "
+          >
+            {project.title}
+          </h3>
 
-                {/* Number badge — lifted slightly */}
-                <CardItem translateZ={20} className="absolute top-4 left-4 z-10">
-                  <div
-                    className="
-                      flex
-                      items-center
-                      justify-center
-                      w-8
-                      h-8
-                      rounded-full
-                      bg-black/40
-                      backdrop-blur-xl
-                      border
-                      border-white/10
-                    "
-                  >
-                    <span className="text-xs font-mono text-cyan-300">
-                      {index + 1}
-                    </span>
-                  </div>
-                </CardItem>
+          {/* Tagline */}
+          <p className="text-xs font-medium text-white/60 mb-3">
+            {project.tagline}
+          </p>
 
-                {/* Hover arrow — lifted most */}
-                <CardItem translateZ={30} className="absolute bottom-4 right-4 z-10">
-                  <div
-                    className="
-                      w-10
-                      h-10
-                      rounded-full
-                      bg-white
-                      text-black
-                      flex
-                      items-center
-                      justify-center
-                      opacity-0
-                      translate-y-3
-                      group-hover:opacity-100
-                      group-hover:translate-y-0
-                      transition-all
-                      duration-300
-                    "
-                  >
-                    <ArrowUpRight className="w-4 h-4" />
-                  </div>
-                </CardItem>
-              </div>
-            </CardItem>
+          {/* Description */}
+          <p className="text-sm text-white/50 leading-relaxed line-clamp-3 mb-5">
+            {project.description}
+          </p>
 
-            {/* ── CardItem: content block lifted to Z=25px ── */}
-            <CardItem translateZ={25} className="w-full">
-              <div className="relative z-10 p-6">
+          {/* Technologies */}
+          <div className="flex flex-wrap gap-1.5 mb-6">
 
-                {/* Title */}
-                <h3
-                  className="
-                    text-xl
-                    sm:text-2xl
-                    font-bold
-                    text-white
-                    mb-2
-                    tracking-tight
-                    group-hover:text-cyan-200
-                    transition-colors
-                    duration-300
-                  "
-                >
-                  {project.title}
-                </h3>
+            {project.technologies.slice(0, 5).map((tech) => (
+              <span
+                key={tech}
+                className="
+                  px-2.5
+                  py-1
+                  rounded-lg
+                  bg-white/[0.04]
+                  border
+                  border-white/[0.08]
+                  text-xs
+                  font-mono
+                  text-white/60
+                  group-hover:border-cyan-300/20
+                  group-hover:text-cyan-200/80
+                  transition-all
+                  duration-300
+                "
+              >
+                {tech}
+              </span>
+            ))}
 
-                {/* Tagline */}
-                <p className="text-xs font-medium text-white/60 mb-3">
-                  {project.tagline}
-                </p>
-
-                {/* Description */}
-                <p className="text-sm text-white/50 leading-relaxed line-clamp-3 mb-5">
-                  {project.description}
-                </p>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  {project.technologies.slice(0, 5).map((tech) => (
-                    <span
-                      key={tech}
-                      className="
-                        px-2.5
-                        py-1
-                        rounded-lg
-                        bg-white/[0.04]
-                        border
-                        border-white/[0.08]
-                        text-xs
-                        font-mono
-                        text-white/60
-                        group-hover:border-cyan-300/20
-                        group-hover:text-cyan-200/80
-                        transition-all
-                        duration-300
-                      "
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.technologies.length > 5 && (
-                    <span
-                      className="
-                        px-2.5
-                        py-1
-                        rounded-lg
-                        bg-white/[0.04]
-                        border
-                        border-white/[0.08]
-                        text-xs
-                        font-mono
-                        text-white/40
-                      "
-                    >
-                      +{project.technologies.length - 5}
-                    </span>
-                  )}
-                </div>
-
-                {/* Divider */}
-                <div className="h-px bg-white/[0.08] mb-5" />
-
-                {/* ── CardItem: actions lifted highest ── */}
-                <CardItem translateZ={40} className="w-full">
-                  <div className="flex items-center justify-between">
-                    <button
-                      onClick={() => onSelect(project)}
-                      className="
-                        group/btn
-                        flex
-                        items-center
-                        gap-2
-                        px-4
-                        py-2
-                        rounded-xl
-                        border
-                        border-cyan-400/25
-                        bg-cyan-400/[0.07]
-                        text-xs
-                        font-semibold
-                        text-cyan-300
-                        hover:bg-cyan-400/[0.14]
-                        hover:border-cyan-400/40
-                        hover:text-white
-                        transition-all
-                        duration-200
-                      "
-                    >
-                      Project Overview
-                      <ChevronRight
-                        className="
-                          w-4
-                          h-4
-                          transition-transform
-                          duration-300
-                          group-hover/btn:translate-x-1
-                        "
-                      />
-                    </button>
-
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="
-                        flex
-                        items-center
-                        gap-1.5
-                        px-3
-                        py-2
-                        rounded-xl
-                        bg-white/[0.04]
-                        border
-                        border-white/[0.08]
-                        text-white/50
-                        text-xs
-                        font-semibold
-                        hover:text-white
-                        hover:bg-white/[0.08]
-                        hover:border-white/20
-                        transition-all
-                        duration-300
-                      "
-                      aria-label={`View ${project.title} GitHub repository`}
-                    >
-                      <Github className="w-4 h-4" />
-                      Code
-                    </a>
-                  </div>
-                </CardItem>
-
-              </div>
-            </CardItem>
-
-            {/* Bottom glow line */}
-            <div
-              className="
-                absolute
-                bottom-0
-                left-1/2
-                -translate-x-1/2
-                w-2/3
-                h-px
-                bg-gradient-to-r
-                from-transparent
-                via-cyan-400/40
-                to-transparent
-                opacity-0
-                group-hover:opacity-100
-                transition-opacity
-                duration-500
-              "
-            />
+            {project.technologies.length > 5 && (
+              <span
+                className="
+                  px-2.5
+                  py-1
+                  rounded-lg
+                  bg-white/[0.04]
+                  border
+                  border-white/[0.08]
+                  text-xs
+                  font-mono
+                  text-white/40
+                "
+              >
+                +{project.technologies.length - 5}
+              </span>
+            )}
 
           </div>
-        </motion.div>
-      </CardBody>
-    </CardContainer>
+
+          {/* Divider */}
+          <div className="h-px bg-white/[0.08] mb-5" />
+
+          {/* Actions */}
+          <div className="flex items-center justify-between">
+
+            <button
+              onClick={() => onSelect(project)}
+              className="
+                group/btn
+                flex
+                items-center
+                gap-2
+                px-4
+                py-2
+                rounded-xl
+                border
+                border-cyan-400/25
+                bg-cyan-400/[0.07]
+                text-xs
+                font-semibold
+                text-cyan-300
+                hover:bg-cyan-400/[0.14]
+                hover:border-cyan-400/40
+                hover:text-white
+                transition-all
+                duration-200
+              "
+            >
+              Project Overview
+
+              <ChevronRight
+                className="
+                  w-4
+                  h-4
+                  transition-transform
+                  duration-300
+                  group-hover/btn:translate-x-1
+                "
+              />
+            </button>
+
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(event) => event.stopPropagation()}
+              className="
+                flex
+                items-center
+                gap-1.5
+                px-3
+                py-2
+                rounded-xl
+                bg-white/[0.04]
+                border
+                border-white/[0.08]
+                text-white/50
+                text-xs
+                font-semibold
+                hover:text-white
+                hover:bg-white/[0.08]
+                hover:border-white/20
+                transition-all
+                duration-300
+              "
+              aria-label={`View ${project.title} GitHub repository`}
+            >
+              <Github className="w-4 h-4" />
+              Code
+            </a>
+
+          </div>
+        </div>
+
+        {/* Bottom glow */}
+        <div
+          className="
+            absolute
+            bottom-0
+            left-1/2
+            -translate-x-1/2
+            w-2/3
+            h-px
+            bg-gradient-to-r
+            from-transparent
+            via-cyan-400/40
+            to-transparent
+            opacity-0
+            group-hover:opacity-100
+            transition-opacity
+            duration-500
+          "
+        />
+
+      </div>
+    </motion.article>
   );
 };
 

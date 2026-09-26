@@ -10,10 +10,12 @@ import { Certifications } from "./sections/Certifications";
 import { Education } from "./sections/Education";
 import { Contact } from "./sections/Contact";
 import Footer from "./components/Footer";
+import { FluidCursor } from "./components/ui/fluid-cursor";
 
 function App() {
   return (
-    <div className="bg-dark-950 text-white overflow-x-hidden">
+    <div className="bg-dark-950 text-white overflow-x-hidden relative">
+      <FluidCursor />
       <Navbar />
 
       <main>
