@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { CardContainer, CardBody, CardItem } from '../components/ui/card-3d';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionHeading } from '../components/SectionHeading';
 import { PROJECTS } from '../data/portfolioData';
@@ -42,262 +41,255 @@ const ProjectCard = ({
   onSelect,
 }) => {
   return (
-    <CardContainer
-      containerClass="p-0 w-full h-full"
-      className="w-full h-full"
-    >
-      <CardBody className="w-full h-full relative group">
-
-        <motion.div
-          variants={staggerChild}
+    <div className="w-full h-full">
+      <motion.div
+        variants={staggerChild}
+        className="
+          group
+          relative
+          h-full
+          rounded-2xl
+          transition-all
+          duration-300
+        "
+      >
+        {/* Card surface */}
+        <div
           className="
-            group
             relative
             h-full
+            overflow-hidden
             rounded-2xl
+            border
+            border-white/[0.08]
+            bg-dark-900/90
+            backdrop-blur-xl
+            shadow-lg
             transition-all
             duration-300
-            will-change-transform
+            group-hover:border-zinc-700
+            group-hover:shadow-2xl
           "
         >
-          {/* Card surface */}
-          <div
-            className="
-              relative
-              h-full
-              overflow-hidden
-              rounded-2xl
-              border
-              border-white/[0.08]
-              bg-dark-900/90
-              backdrop-blur-xl
-              shadow-lg
-              transition-all
-              duration-300
-              group-hover:border-zinc-700
-              group-hover:shadow-2xl
-            "
-          >
 
-            {/* Visual Header */}
-            <CardItem translateZ={0} className="w-full">
-              <div className="relative h-52 sm:h-60 overflow-hidden">
-                <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105">
-                  <img
-                    src={PROJECT_IMAGES[project.id]}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-90" />
-
-                {/* Number badge */}
-                <CardItem translateZ={15} className="absolute top-4 left-4 z-10">
-                  <div
-                    className="
-                      flex
-                      items-center
-                      justify-center
-                      px-2.5
-                      py-1
-                      rounded-lg
-                      bg-dark-950/80
-                      backdrop-blur-md
-                      border
-                      border-white/10
-                    "
-                  >
-                    <span className="text-xs font-mono font-semibold text-cyan-400">
-                      0{index + 1}
-                    </span>
-                  </div>
-                </CardItem>
-
-                {/* Hover arrow */}
-                <CardItem translateZ={25} className="absolute bottom-4 right-4 z-10">
-                  <div
-                    className="
-                      w-9
-                      h-9
-                      rounded-xl
-                      bg-blue-600
-                      text-white
-                      flex
-                      items-center
-                      justify-center
-                      opacity-0
-                      translate-y-2
-                      group-hover:opacity-100
-                      group-hover:translate-y-0
-                      transition-all
-                      duration-300
-                      shadow-md
-                    "
-                  >
-                    <ArrowUpRight className="w-4 h-4 font-bold" />
-                  </div>
-                </CardItem>
+          {/* Visual Header */}
+          <div className="w-full">
+            <div className="relative h-52 sm:h-60 overflow-hidden">
+              <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105">
+                <img
+                  src={PROJECT_IMAGES[project.id]}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
               </div>
-            </CardItem>
 
-            {/* Content block */}
-            <CardItem translateZ={20} className="w-full">
-              <div className="relative z-10 p-6">
+              <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-90" />
 
-                {/* Category */}
-                <div className="mb-2">
-                  <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-cyan-400">
-                    {project.category}
-                  </span>
-                </div>
-
-                {/* Title */}
-                <h3
+              {/* Number badge */}
+              <div className="absolute top-4 left-4 z-10">
+                <div
                   className="
-                    text-xl
-                    font-bold
-                    text-white
-                    mb-1.5
-                    tracking-tight
-                    group-hover:text-cyan-300
-                    transition-colors
-                    duration-300
+                    flex
+                    items-center
+                    justify-center
+                    px-2.5
+                    py-1
+                    rounded-lg
+                    bg-dark-950/80
+                    backdrop-blur-md
+                    border
+                    border-white/10
                   "
                 >
-                  {project.title}
-                </h3>
-
-                {/* Tagline */}
-                <p className="text-xs font-medium text-zinc-400 mb-3">
-                  {project.tagline}
-                </p>
-
-                {/* Description */}
-                <p className="text-xs text-zinc-400 leading-relaxed line-clamp-3 mb-5">
-                  {project.description}
-                </p>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-1.5 mb-5">
-                  {project.technologies.slice(0, 5).map((tech) => (
-                    <span
-                      key={tech}
-                      className="
-                        px-2.5
-                        py-1
-                        rounded-md
-                        bg-dark-950
-                        border
-                        border-zinc-800
-                        text-[11px]
-                        font-mono
-                        text-zinc-300
-                        group-hover:border-cyan-400/30
-                        group-hover:text-cyan-300
-                        transition-all
-                      "
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.technologies.length > 5 && (
-                    <span
-                      className="
-                        px-2.5
-                        py-1
-                        rounded-md
-                        bg-dark-950
-                        border
-                        border-zinc-800
-                        text-[11px]
-                        font-mono
-                        text-zinc-500
-                      "
-                    >
-                      +{project.technologies.length - 5}
-                    </span>
-                  )}
+                  <span className="text-xs font-mono font-semibold text-cyan-400">
+                    0{index + 1}
+                  </span>
                 </div>
-
-                {/* Divider */}
-                <div className="h-px bg-white/[0.06] mb-5" />
-
-                {/* Actions */}
-                <CardItem translateZ={30} className="w-full">
-                  <div className="flex items-center justify-between">
-                    <button
-                      onClick={() => onSelect(project)}
-                      className="
-                        group/btn
-                        flex
-                        items-center
-                        gap-1.5
-                        px-3.5
-                        py-2
-                        rounded-xl
-                        border
-                        border-cyan-400/30
-                        bg-cyan-400/10
-                        text-xs
-                        font-semibold
-                        text-cyan-300
-                        hover:bg-cyan-400/20
-                        hover:border-cyan-400/50
-                        hover:text-white
-                        transition-all
-                      "
-                    >
-                      Overview
-                      <ChevronRight
-                        className="
-                          w-3.5
-                          h-3.5
-                          transition-transform
-                          duration-300
-                          group-hover/btn:translate-x-0.5
-                        "
-                      />
-                    </button>
-
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="
-                        flex
-                        items-center
-                        gap-1.5
-                        px-3
-                        py-2
-                        rounded-xl
-                        bg-white/[0.04]
-                        border
-                        border-white/10
-                        text-zinc-400
-                        text-xs
-                        font-semibold
-                        hover:text-white
-                        hover:bg-white/[0.08]
-                        hover:border-white/20
-                        transition-all
-                      "
-                      aria-label={`View ${project.title} GitHub repository`}
-                    >
-                      <Github className="w-3.5 h-3.5" />
-                      Code
-                    </a>
-                  </div>
-                </CardItem>
-
               </div>
-            </CardItem>
 
+              {/* Hover arrow */}
+              <div className="absolute bottom-4 right-4 z-10">
+                <div
+                  className="
+                    w-9
+                    h-9
+                    rounded-xl
+                    bg-blue-600
+                    text-white
+                    flex
+                    items-center
+                    justify-center
+                    opacity-0
+                    translate-y-2
+                    group-hover:opacity-100
+                    group-hover:translate-y-0
+                    transition-all
+                    duration-300
+                    shadow-md
+                  "
+                >
+                  <ArrowUpRight className="w-4 h-4 font-bold" />
+                </div>
+              </div>
+            </div>
           </div>
-        </motion.div>
-      </CardBody>
-    </CardContainer>
+
+          {/* Content block */}
+          <div className="w-full">
+            <div className="relative z-10 p-6">
+
+              {/* Category */}
+              <div className="mb-2">
+                <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-cyan-400">
+                  {project.category}
+                </span>
+              </div>
+
+              {/* Title */}
+              <h3
+                className="
+                  text-xl
+                  font-bold
+                  text-white
+                  mb-1.5
+                  tracking-tight
+                  group-hover:text-cyan-300
+                  transition-colors
+                  duration-300
+                "
+              >
+                {project.title}
+              </h3>
+
+              {/* Tagline */}
+              <p className="text-xs font-medium text-zinc-400 mb-3">
+                {project.tagline}
+              </p>
+
+              {/* Description */}
+              <p className="text-xs text-zinc-400 leading-relaxed line-clamp-3 mb-5">
+                {project.description}
+              </p>
+
+              {/* Technologies */}
+              <div className="flex flex-wrap gap-1.5 mb-5">
+                {project.technologies.slice(0, 5).map((tech) => (
+                  <span
+                    key={tech}
+                    className="
+                      px-2.5
+                      py-1
+                      rounded-md
+                      bg-dark-950
+                      border
+                      border-zinc-800
+                      text-[11px]
+                      font-mono
+                      text-zinc-300
+                      group-hover:border-cyan-400/30
+                      group-hover:text-cyan-300
+                      transition-all
+                    "
+                  >
+                    {tech}
+                  </span>
+                ))}
+                {project.technologies.length > 5 && (
+                  <span
+                    className="
+                      px-2.5
+                      py-1
+                      rounded-md
+                      bg-dark-950
+                      border
+                      border-zinc-800
+                      text-[11px]
+                      font-mono
+                      text-zinc-500
+                    "
+                  >
+                    +{project.technologies.length - 5}
+                  </span>
+                )}
+              </div>
+
+              {/* Divider */}
+              <div className="h-px bg-white/[0.06] mb-5" />
+
+              {/* Actions */}
+              <div className="w-full">
+                <div className="flex items-center justify-between">
+                  <button
+                    onClick={() => onSelect(project)}
+                    className="
+                      group/btn
+                      flex
+                      items-center
+                      gap-1.5
+                      px-3.5
+                      py-2
+                      rounded-xl
+                      border
+                      border-cyan-400/30
+                      bg-cyan-400/10
+                      text-xs
+                      font-semibold
+                      text-cyan-300
+                      hover:bg-cyan-400/20
+                      hover:border-cyan-400/50
+                      hover:text-white
+                      transition-all
+                    "
+                  >
+                    Overview
+                    <ChevronRight
+                      className="
+                        w-3.5
+                        h-3.5
+                        transition-transform
+                        duration-300
+                        group-hover/btn:translate-x-0.5
+                      "
+                    />
+                  </button>
+
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="
+                      flex
+                      items-center
+                      gap-1.5
+                      px-3
+                      py-2
+                      rounded-xl
+                      bg-white/[0.04]
+                      border
+                      border-white/10
+                      text-zinc-400
+                      text-xs
+                      font-semibold
+                      hover:text-white
+                      hover:bg-white/[0.08]
+                      hover:border-white/20
+                      transition-all
+                    "
+                    aria-label={`View ${project.title} GitHub repository`}
+                  >
+                    <Github className="w-3.5 h-3.5" />
+                    Code
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </motion.div>
+    </div>
   );
 };
 
