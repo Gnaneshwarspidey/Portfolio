@@ -684,3 +684,4 @@ export const Projects = () => {
     </section>
   );
 };
+
