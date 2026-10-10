@@ -4,8 +4,6 @@ Live Url : https://gnaneshwarspidey.github.io/Portfolio/
 <div align="center">
 
   <h1>Keshgir Gnaneshwar</h1>
-  <p><strong>AI/ML Engineer & Full-Stack Developer</strong></p>
-  <p>Final-Year B.E. Student in Artificial Intelligence & Machine Learning</p>
 
   [![Live Demo](https://img.shields.io/badge/Live%20Demo-gnaneshwarspidey.github.io%2FPortfolio-blue?style=for-the-badge&logo=github)](https://gnaneshwarspidey.github.io/Portfolio/)
   [![GitHub](https://img.shields.io/badge/GitHub-Gnaneshwarspidey-181717?style=for-the-badge&logo=github)](https://github.com/Gnaneshwarspidey)
