@@ -77,6 +77,24 @@ export const SKILL_CATEGORIES = [
 
 export const PROJECTS = [
   {
+    id: "digit-recognition",
+    title: "Digit & Character Recognition",
+    category: "Deep Learning / Computer Vision",
+    tagline: "Real-Time Handwritten Digit & Alphanumeric Classification",
+    description: "An end-to-end Deep Learning system for real-time handwritten digit and character classification using Convolutional Neural Networks (CNN) trained on MNIST (99.37% test accuracy) and EMNIST ByClass (62 classes: 0-9, A-Z, a-z), paired with an interactive Streamlit canvas application.",
+    highlights: [
+      "Interactive sketchpad canvas featuring zero-latency freehand drawing and < 5 ms CPU inference",
+      "Dual neural engines: 99.37% benchmark accuracy MNIST CNN and 62-class EMNIST alphanumeric model",
+      "Robust preprocessing pipeline with automated thresholding, morphological dilation, and center-of-mass alignment",
+      "Real-time prediction display with top class confidence scores and letterpress visual output"
+    ],
+    technologies: ["Python", "TensorFlow", "CNN", "Streamlit", "OpenCV", "Deep Learning"],
+    accentColor: "from-cyan-500/20 to-blue-500/20",
+    theme: "deeplearning",
+    githubUrl: "https://github.com/Gnaneshwarspidey/Digit-Recognition",
+    demoUrl: "https://gnaneshwar-digit-recognition.streamlit.app/"
+  },
+  {
     id: "bazar-byte",
     title: "Bazar Byte",
     category: "E-Commerce / Marketplace",
