@@ -15,11 +15,9 @@ import {
   ScanLine,
 } from 'lucide-react';
 
-import { FlipCard } from '../components/ui/flip-card';
-
 const CertificationCard = ({ cert, index, IconComponent }) => {
-  const FrontCard = (
-    <div className="group relative h-full min-h-[300px]">
+  return (
+    <motion.div variants={staggerChild} className="group relative h-full min-h-[300px]">
       {/* Animated Gradient Border */}
       <div className="absolute -inset-[1px] rounded-[1.05rem] bg-gradient-to-r from-blue-500/0 via-cyan-400/0 to-indigo-500/0 opacity-0 blur-[2px] transition-all duration-500 group-hover:from-blue-500/70 group-hover:via-cyan-400/60 group-hover:to-indigo-500/70 group-hover:opacity-100" />
 
@@ -124,65 +122,12 @@ const CertificationCard = ({ cert, index, IconComponent }) => {
               </p>
             </div>
 
-            <span className="text-[11px] font-mono text-blue-400 flex items-center gap-1 group-hover:underline">
-              Flip Card <ArrowUpRight className="h-3.5 w-3.5" />
+            <span className="text-[11px] font-mono text-blue-400/90 flex items-center gap-1">
+              Credential ID: {cert.id}
             </span>
           </div>
         </div>
       </div>
-    </div>
-  );
-
-  const BackCard = (
-    <div className="relative h-full min-h-[300px] overflow-hidden rounded-2xl border border-blue-500/30 bg-dark-950 p-6 sm:p-7 flex flex-col justify-between shadow-2xl">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-3xl pointer-events-none" />
-
-      <div>
-        <div className="flex items-center justify-between border-b border-slate-800/80 pb-4 mb-4">
-          <div className="flex items-center gap-2">
-            <BadgeCheck className="h-5 w-5 text-blue-400" />
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-white">
-              Official Credential Details
-            </span>
-          </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
-            ID: {cert.id}
-          </span>
-        </div>
-
-        <h4 className="text-base font-bold text-white mb-2">{cert.title}</h4>
-        <p className="text-xs text-slate-300 leading-relaxed mb-4">
-          Specialized certification verified under {cert.issuer} professional standards in {cert.category}.
-        </p>
-
-        <div className="space-y-2 text-xs font-mono">
-          <div className="flex items-center justify-between p-2 rounded bg-dark-900 border border-slate-800">
-            <span className="text-slate-400">Issuer:</span>
-            <span className="text-blue-300 font-semibold">{cert.issuer}</span>
-          </div>
-          <div className="flex items-center justify-between p-2 rounded bg-dark-900 border border-slate-800">
-            <span className="text-slate-400">Verification:</span>
-            <span className="text-emerald-400 font-semibold flex items-center gap-1">
-              <CheckCircle2 className="w-3 h-3" /> Confirmed
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
-        <span className="text-[11px] font-mono text-slate-400">
-          Tap / Hover to return
-        </span>
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white shadow-md">
-          <ArrowUpRight className="h-4 w-4" />
-        </div>
-      </div>
-    </div>
-  );
-
-  return (
-    <motion.div variants={staggerChild} className="h-full min-h-[320px]">
-      <FlipCard front={FrontCard} back={BackCard} />
     </motion.div>
   );
 };
