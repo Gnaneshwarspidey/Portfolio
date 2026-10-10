@@ -142,7 +142,7 @@ export const PROJECTS = [
     technologies: ["React", "Python", "Flask", "SQL / Database", "Tailwind CSS"],
     accentColor: "from-violet-500/20 to-indigo-500/20",
     theme: "events",
-    githubUrl: "https://github.com/Gnaneshwarspidey/Portfolio",
+    githubUrl: "https://github.com/Gnaneshwarspidey/festify-event-nexus",
     demoUrl: "https://gnaneshwarspidey.github.io/Portfolio/"
   }
 ];
