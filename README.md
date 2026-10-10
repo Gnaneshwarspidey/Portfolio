@@ -3,12 +3,13 @@
 
 <div align="center">
 
-  <h1>Keshgir Gnaneshwar</h1>
+  <h1>Developer Portfolio Website</h1>
+  <p>Modern, responsive developer portfolio built with React, Vite, and Tailwind CSS.</p>
 
-  [![Live Demo](https://img.shields.io/badge/Live%20Demo-gnaneshwarspidey.github.io%2FPortfolio-blue?style=flat-square&logo=github)](https://gnaneshwarspidey.github.io/Portfolio/)
-  [![GitHub](https://img.shields.io/badge/GitHub-Gnaneshwarspidey-181717?style=flat-square&logo=github)](https://github.com/Gnaneshwarspidey)
-  [![LinkedIn](https://img.shields.io/badge/LinkedIn-keshgir--gnaneshwar-0077B5?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/keshgir-gnaneshwar)
-  [![Status](https://img.shields.io/badge/Status-Available%20for%20Roles-2ea44f?style=flat-square)](#contact)
+  [![Live Demo](https://img.shields.io/badge/Live%20Demo-gnaneshwarspidey.github.io%2FPortfolio-blue?style=flat-square)](https://gnaneshwarspidey.github.io/Portfolio/)
+  [![Built with React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev/)
+  [![Styled with Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+  [![Bundled with Vite](https://img.shields.io/badge/Vite-5.4-646CFF?style=flat-square&logo=vite)](https://vitejs.dev/)
 
 </div>
 
@@ -16,88 +17,83 @@
 
 ## Overview
 
-A personal developer portfolio showcasing technical experience, projects, skills, and certifications across Artificial Intelligence, Machine Learning, and Full-Stack Web Development.
+This repository contains the source code for the personal portfolio website of **Keshgir Gnaneshwar**. It is designed as a fast, client-side single-page application (SPA) featuring smooth animations, interactive UI components, and a dark obsidian/cyan color scheme.
 
-- **Live URL:** [gnaneshwarspidey.github.io/Portfolio](https://gnaneshwarspidey.github.io/Portfolio/)
-- **Repository:** [github.com/Gnaneshwarspidey/Portfolio](https://github.com/Gnaneshwarspidey/Portfolio)
-
----
-
-## Technical Skills
-
-| Domain | Technologies & Frameworks |
-| :--- | :--- |
-| **Frontend** | React.js, Tailwind CSS, Framer Motion, HTML5, CSS3, Responsive UI |
-| **Backend** | Python, Flask, RESTful APIs, Backend Logic |
-| **AI & Machine Learning** | Artificial Intelligence, Machine Learning, NLP, Data Preprocessing |
-| **Data & Analytics** | Pandas, NumPy, Matplotlib, Microsoft Excel |
-| **Databases** | SQL, MongoDB, Supabase |
-| **Languages** | Python, Java, C, JavaScript, Kotlin |
-| **Tools & Platforms** | Git, GitHub, Vite, GitHub Actions, VS Code |
+- **Live URL:** [https://gnaneshwarspidey.github.io/Portfolio/](https://gnaneshwarspidey.github.io/Portfolio/)
+- **Hosting:** GitHub Pages via automated GitHub Actions CI/CD
 
 ---
 
-## Featured Projects
+## Tech Stack
 
-### Bazar Byte
-**Digital Marketplace for Dry Fruits & Nuts**
-- **Stack:** React, Tailwind CSS, JavaScript, Flask, Database Management
-- **Key Features:**
-  - Structured product categorization and catalog discovery.
-  - Interactive cart management and responsive client-side state handling.
-  - Optimized layout for mobile and desktop screens.
-- **Links:** [Live Demo](https://gnaneshwarspidey.github.io/Portfolio/) | [Source Code](https://github.com/Gnaneshwarspidey/Portfolio)
-
----
-
-### Green Pulse
-**Agricultural Monitoring & Data Insights**
-- **Stack:** Python, Machine Learning, Data Analytics, React, REST APIs
-- **Key Features:**
-  - Data telemetry interface tracking crop metrics, soil parameters, and environmental factors.
-  - Analytical dashboard assisting in data-backed decision-making for sustainable farming.
-  - Responsive layout for desktop and field devices.
-- **Links:** [Live Demo](https://gnaneshwarspidey.github.io/Portfolio/) | [Source Code](https://github.com/Gnaneshwarspidey/Portfolio)
+- **Framework:** React 19
+- **Bundler & Dev Server:** Vite
+- **Styling:** Tailwind CSS, PostCSS
+- **Animations:** Framer Motion, GSAP
+- **Icons:** Lucide React
+- **Graphics & Effects:** HTML5 Canvas, Three.js
+- **Deployment:** GitHub Pages (`actions/deploy-pages`)
 
 ---
 
-### Event Hub
-**Campus & Community Event Management Platform**
-- **Stack:** React, Python, Flask, SQL / Database, Tailwind CSS
-- **Key Features:**
-  - Event registration and timetable discovery workflows.
-  - Dynamic event directory with real-time UI filtering.
-  - Database schema for scheduling and attendee records.
-- **Links:** [Live Demo](https://gnaneshwarspidey.github.io/Portfolio/) | [Source Code](https://github.com/Gnaneshwarspidey/Portfolio)
+## Key Features
+
+- **Dark Theme Aesthetic:** Deep navy/black background paired with cyan and electric blue accents.
+- **Interactive UI & Animations:** Smooth page transitions, entry animations, and hover states powered by Framer Motion.
+- **Dynamic 3D Cards & Cursor Effects:** Spotlight-tracking cards and interactive fluid canvas elements.
+- **Centralized Data Architecture:** All site content (skills, projects, experience, bio) is separated into a single configuration file for easy maintenance.
+- **Fully Responsive:** Optimized layouts across mobile, tablet, and desktop viewports.
+- **Static & Fast:** No backend database required; zero server overhead and quick load times on GitHub Pages.
 
 ---
 
-## Experience
+## Project Structure
 
-### Machine Learning Intern
-**Leap Inspire**
-- Applied core machine learning principles to real-world datasets and pipelines.
-- Executed exploratory data analysis, feature engineering, and model experimentation using Python, Pandas, and NumPy.
-- Built reusable data cleaning workflows and collaborated on computational tasks.
+```text
+portfolio/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml          # GitHub Pages automated build & deploy pipeline
+├── public/                     # Static assets (favicons, icons)
+├── src/
+│   ├── assets/                 # Profile images and graphics
+│   ├── components/             # Reusable UI components & layouts (Navbar, Footer, etc.)
+│   │   └── ui/                 # 3D cards, spotlight effects, interactive elements
+│   ├── data/
+│   │   └── portfolioData.js    # Centralized portfolio data (bio, projects, skills)
+│   ├── hooks/                  # Custom React hooks (Framer Motion variants, viewport)
+│   ├── sections/               # Page sections (Hero, About, Skills, Projects, Contact, etc.)
+│   ├── App.jsx                 # Main application layout
+│   ├── index.css               # Global CSS, utilities, and custom animations
+│   └── main.jsx                # Application entry point
+├── index.html                  # HTML template
+├── tailwind.config.js          # Tailwind theme & color configurations
+└── vite.config.js              # Vite configuration
+```
 
 ---
 
-## Certifications
+## Managing Content
 
-- **IoT Certificate** — Cisco
-- **Cybersecurity Analyst Job Simulation** — Tata
-- **Android App Development for Beginners** — Simplilearn
-- **AI Skills Passport** — EY & Microsoft
+All portfolio content is structured and stored inside [`src/data/portfolioData.js`](src/data/portfolioData.js). To update any personal information, modify the corresponding exported object:
+
+- `PERSONAL_INFO`: Name, title, headline, email, and social profiles.
+- `SKILL_CATEGORIES`: Skill sets grouped by domain.
+- `PROJECTS`: Project titles, descriptions, technology tags, and demo links.
+- `EXPERIENCE`: Work experience, roles, and descriptions.
+- `CERTIFICATIONS`: Certificates and issuers.
+- `EDUCATION`: Degree, focus areas, and institution details.
 
 ---
 
-## Local Development
+## Getting Started
 
 ### Prerequisites
-- Node.js (version 18 or above recommended)
+
+- Node.js (version 18 or higher recommended)
 - npm or yarn
 
-### Setup Instructions
+### Installation & Run
 
 1. Clone the repository:
    ```bash
@@ -110,26 +106,29 @@ A personal developer portfolio showcasing technical experience, projects, skills
    npm install
    ```
 
-3. Start the local development server:
+3. Start the development server:
    ```bash
    npm run dev
    ```
+   Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 4. Build for production:
    ```bash
    npm run build
    ```
+   The production-ready assets will be generated in the `dist/` directory.
 
 ---
 
-## Contact
+## Deployment
 
-- **Email:** [kesgirgnaneshwar025@gmail.com](mailto:kesgirgnaneshwar025@gmail.com)
-- **LinkedIn:** [linkedin.com/in/keshgir-gnaneshwar](https://www.linkedin.com/in/keshgir-gnaneshwar)
-- **GitHub:** [github.com/Gnaneshwarspidey](https://github.com/Gnaneshwarspidey)
+The project uses GitHub Actions for continuous deployment. Whenever changes are pushed to the `main` branch, the workflow (`.github/workflows/deploy.yml`) automatically builds the project and deploys the static files to GitHub Pages.
 
 ---
 
-<div align="center">
-  <sub>Copyright &copy; 2026 Keshgir Gnaneshwar. All rights reserved.</sub>
-</div>
+## License & Author
+
+Created and maintained by **Keshgir Gnaneshwar**.
+
+- GitHub: [@Gnaneshwarspidey](https://github.com/Gnaneshwarspidey)
+- LinkedIn: [in/keshgir-gnaneshwar](https://www.linkedin.com/in/keshgir-gnaneshwar)
