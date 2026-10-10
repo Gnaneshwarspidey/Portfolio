@@ -7,7 +7,7 @@ import { Github } from '../components/SocialIcons';
 import bazarByteImg from '../assets/BazarByte.png';
 import greenPulseImg from '../assets/GreenPulse.png';
 import eventHubImg from '../assets/EventHub.png';
-import digitRecognitionImg from '../assets/DigitRecognition.png';
+import digitRecognitionImg from '../assets/DigitRecognition.jpg';
 
 const PROJECT_IMAGES = {
   'digit-recognition': digitRecognitionImg,
