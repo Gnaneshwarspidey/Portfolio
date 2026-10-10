@@ -110,7 +110,7 @@ All portfolio content is structured and stored inside [`src/data/portfolioData.j
    ```bash
    npm run dev
    ```
-   Open [http://localhost:5173](http://localhost:5173) in your browser.
+   Open it.
 
 4. Build for production:
    ```bash
