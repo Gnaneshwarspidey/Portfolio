@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-11T13:12:00.000Z",
+  "title": "Design System: Keshgir Gnaneshwar Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Signal Cyan",
+        "canonical": "#22d3ee",
+        "tonalRamp": ["#083344", "#0e7490", "#06b6d4", "#22d3ee", "#38bdf8", "#67e8f9", "#a5f3fc", "#cffafe"]
+      },
+      "action": {
+        "role": "secondary",
+        "displayName": "Cobalt Action Blue",
+        "canonical": "#2563eb",
+        "tonalRamp": ["#172554", "#1e40af", "#1d4ed8", "#2563eb", "#3b82f6", "#60a5fa", "#93c5fd", "#dbeafe"]
+      },
+      "accent-indigo": {
+        "role": "tertiary",
+        "displayName": "Atmospheric Indigo",
+        "canonical": "#6366f1",
+        "tonalRamp": ["#1e1b4b", "#3730a3", "#4338ca", "#6366f1", "#818cf8", "#a5b4fc", "#c7d2fe", "#e0e7ff"]
+      },
+      "status-success": {
+        "role": "tertiary",
+        "displayName": "Pulse Emerald",
+        "canonical": "#10b981",
+        "tonalRamp": ["#022c22", "#065f46", "#047857", "#10b981", "#34d399", "#6ee7b7", "#a7f3d0", "#d1fae5"]
+      },
+      "neutral-bg": {
+        "role": "neutral",
+        "displayName": "Deep Obsidian Base",
+        "canonical": "#050816",
+        "tonalRamp": ["#02040a", "#050816", "#0b0f17", "#111726", "#1e293b", "#334155", "#64748b", "#94a3b8"]
+      },
+      "neutral-surface": {
+        "role": "neutral",
+        "displayName": "Card Surface",
+        "canonical": "#0b0f17",
+        "tonalRamp": ["#050816", "#0b0f17", "#111726", "#1a2234", "#273449", "#475569", "#94a3b8", "#cbd5e1"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display Hero", "purpose": "Main intro headline, clamped with tight negative tracking." },
+      "headline": { "displayName": "Section Headline", "purpose": "Section headings and modal banners." },
+      "title": { "displayName": "Card Title", "purpose": "Individual project and certification titles." },
+      "body": { "displayName": "Body Prose", "purpose": "Clear readable explanations and summaries." },
+      "label": { "displayName": "Monospace Metric", "purpose": "Category indicators, tech chips, credential IDs, and live metrics." }
+    },
+    "shadows": [
+      { "name": "glow-sm", "value": "0 0 15px -3px rgba(59, 130, 246, 0.15)", "purpose": "Subtle ambient backlight." },
+      { "name": "glow-md", "value": "0 0 25px -5px rgba(59, 130, 246, 0.25)", "purpose": "Interactive button hover spotlight." },
+      { "name": "card-rest", "value": "0 10px 30px -10px rgba(0, 0, 0, 0.5)", "purpose": "Grounding shadow under cards on dark background." }
+    ],
+    "motion": [
+      { "name": "spring-tight", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Fast responsive hover scale transitions." },
+      { "name": "fade-in", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Entrance stagger reveals for cards and text." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary action button for key conversions.",
+      "html": "<button class=\"ds-btn-primary\">View My Work <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 12h14M12 5l7 7-7 7\"/></svg></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #2563eb; color: #ffffff; padding: 14px 24px; border-radius: 12px; font-family: Inter, sans-serif; font-size: 14px; font-weight: 600; border: none; cursor: pointer; box-shadow: 0 0 20px rgba(37,99,235,0.3); transition: background 0.2s, transform 0.2s; } .ds-btn-primary:hover { background: #3b82f6; transform: translateY(-2px); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Secondary action button with translucent glass effect.",
+      "html": "<button class=\"ds-btn-secondary\">Explore More</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05); color: #ffffff; padding: 14px 24px; border-radius: 12px; font-family: Inter, sans-serif; font-size: 14px; font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); cursor: pointer; transition: border-color 0.2s, background 0.2s; } .ds-btn-secondary:hover { border-color: rgba(34, 211, 238, 0.3); background: rgba(255, 255, 255, 0.1); }"
+    },
+    {
+      "name": "Tech Chip",
+      "kind": "chip",
+      "refersTo": "chip-mono",
+      "description": "Monospace technology tag chip.",
+      "html": "<span class=\"ds-chip-mono\">Python</span>",
+      "css": ".ds-chip-mono { display: inline-block; padding: 4px 10px; border-radius: 6px; background: #06080d; border: 1px solid #27272a; color: #d4d4d8; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; transition: border-color 0.2s, color 0.2s; } .ds-chip-mono:hover { border-color: rgba(34, 211, 238, 0.3); color: #67e8f9; }"
+    },
+    {
+      "name": "Status Indicator",
+      "kind": "chip",
+      "refersTo": "chip-status",
+      "description": "Live availability or verified status pill.",
+      "html": "<div class=\"ds-status-pill\"><span class=\"ds-status-dot\"></span><span>Available</span></div>",
+      "css": ".ds-status-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 9999px; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(34, 211, 238, 0.2); backdrop-filter: blur(12px); color: #ffffff; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; } .ds-status-dot { width: 8px; height: 8px; border-radius: 9999px; background: #10b981; box-shadow: 0 0 10px rgba(16, 185, 129, 0.6); }"
+    },
+    {
+      "name": "Terminal Input",
+      "kind": "input",
+      "refersTo": "input-terminal",
+      "description": "Obsidian form input with electric focus state.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"alex@example.com\" />",
+      "css": ".ds-input { width: 100%; padding: 12px 14px; border-radius: 12px; background: rgba(6, 8, 13, 0.85); border: 1px solid #1e293b; color: #e2e8f0; font-family: Inter, sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; } .ds-input:focus { border-color: rgba(59, 130, 246, 0.6); box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Obsidian Terminal",
+    "overview": "\"The Obsidian Terminal\" evokes a mission-critical computational workbench—quiet, dark, deeply engineered, and illuminated by precise electronic telemetry signals. Rather than loud showmanship or excessive ornamentation, the system relies on deep obsidian black depth (#050816), razor-sharp typography, and tactical bursts of vibrant cyan (#22d3ee) and electric blue (#2563eb). Surfaces feel monolithic, grounded, and physical. Cards and containers reject unstable 3D rotations or playful perspective wobbles; instead, they maintain rock-solid planar integrity while responding with disciplined micro-interactions: illuminated border gradients on hover, hairline dividers, ambient spotlight tracking, and animated status pulses.",
+    "keyCharacteristics": [
+      "Deep obsidian backdrop with low-noise radial ambient lighting and technical vector grids.",
+      "High-contrast hierarchy: bright white headings paired with technical monospace labels and muted slate body copy.",
+      "Controlled cyan luminescence acting strictly as targeted focal signals.",
+      "Solid, non-tilting planar surfaces with subtle glassmorphic backdrop-blur overlays."
+    ],
+    "rules": [
+      {
+        "name": "The Ten Percent Signal Rule",
+        "body": "Signal cyan (#22d3ee) must occupy no more than 10% of any given viewport. Its rarity gives it high visual priority; overuse dilutes technical impact.",
+        "section": "colors"
+      },
+      {
+        "name": "The Functional Color Rule",
+        "body": "Emerald green is strictly reserved for verified statuses and real-time availability. It is never used for decorative aesthetic accents.",
+        "section": "colors"
+      },
+      {
+        "name": "The Monospace Discipline Rule",
+        "body": "All metadata, technical tags, categories, credential IDs, and status indicators must be rendered in JetBrains Mono with uppercase tracking.",
+        "section": "typography"
+      },
+      {
+        "name": "The Zero-Tilt Invariant",
+        "body": "Cards must remain planar and level under cursor motion. Motion is expressed through border glow transitions, background spotlight gradients, and thumbnail scales, never geometric distortion.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do maintain stable, planar cards with zero 3D tilt or rotation when hovering.",
+      "Do restrict signal cyan (#22d3ee) to targeted focal highlights and key metadata.",
+      "Do format technical categories, credentials, and tags in JetBrains Mono with uppercase tracking.",
+      "Do ensure all external links have accessible labels and open securely in new tabs (rel=\"noreferrer\").",
+      "Do preserve fast static single-page performance without introducing heavyweight database dependencies."
+    ],
+    "donts": [
+      "Don't apply 3D transform perspectives (rotateX, rotateY, perspective) to content cards.",
+      "Don't flood broad background panels with saturated cyan or blue gradients.",
+      "Don't use decorative generic stock photos; use real project captures and diagrams.",
+      "Don't use low-contrast text that violates WCAG AA standards against obsidian backgrounds.",
+      "Don't hide critical portfolio navigation or project links behind multi-click carousels."
+    ]
+  }
+}

@@ -56,3 +56,4 @@ An applied AI/ML engineer who bridges intelligent models (computer vision, ML pi
 2. **Speed & Stability:** Zero latency, instantaneous page navigation, and stable non-tilting cards that respect user focus.
 3. **Applied Over Theoretical:** Highlight practical end-to-end integration—connecting models, data processing, APIs, and interfaces.
 4. **Transparent Authenticity:** Link directly to public source code and verified credentials so every claim is verifiable.
+
