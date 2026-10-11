@@ -253,7 +253,7 @@ export const Contact = () => {
                     </motion.div>
 
                     <div className="min-w-0">
-                      <div className="mb-1 font-mono text-[11px] uppercase tracking-wider text-slate-500">
+                      <div className="mb-1 font-mono text-xs uppercase tracking-wider text-slate-500">
                         Email Directly
                       </div>
 
@@ -489,7 +489,7 @@ export const Contact = () => {
                       Message *
                     </label>
 
-                    <span className="font-mono text-[11px] text-slate-700">
+                    <span className="font-mono text-xs text-slate-500">
                       REQUIRED
                     </span>
                   </div>
@@ -533,7 +533,7 @@ export const Contact = () => {
                 <div className="mt-4 flex items-center justify-center gap-2 text-center">
                   <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
 
-                  <p className="font-mono text-xs leading-relaxed text-slate-600">
+                  <p className="font-mono text-xs leading-relaxed text-slate-400">
                     Opens your default email client and sends directly to{' '}
                     {PERSONAL_INFO.email}
                   </p>

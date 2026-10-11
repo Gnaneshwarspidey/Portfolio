@@ -122,7 +122,7 @@ const CertificationCard = ({ cert, index, IconComponent }) => {
               </p>
             </div>
 
-            <span className="text-[11px] font-mono text-blue-400/90 flex items-center gap-1">
+            <span className="text-xs font-mono text-blue-400/90 flex items-center gap-1">
               Credential ID: {cert.id}
             </span>
           </div>

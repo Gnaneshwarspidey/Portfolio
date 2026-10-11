@@ -113,7 +113,7 @@ const Footer = () => {
               web experiences, and practical software solutions.
             </p>
 
-            <div className="mt-5 inline-flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/5 px-3 py-2 text-[11px] font-mono text-emerald-400">
+            <div className="mt-5 inline-flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/5 px-3 py-2 text-xs font-mono text-emerald-400">
               <Circle className="w-2 h-2 fill-emerald-400 text-emerald-400" />
               Available for opportunities
             </div>
@@ -121,7 +121,7 @@ const Footer = () => {
 
           {/* Connect */}
           <div>
-            <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-4">
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-500 mb-4">
               <Code2 className="w-4 h-4 text-blue-400" />
               Connect
             </div>
@@ -158,7 +158,7 @@ const Footer = () => {
 
           {/* Portfolio Status */}
           <div>
-            <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-4">
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-500 mb-4">
               <CheckCircle2 className="w-4 h-4 text-blue-400" />
               Portfolio Status
             </div>
@@ -200,7 +200,7 @@ const Footer = () => {
               © 2026 {PERSONAL_INFO.name}. All rights reserved.
             </p>
 
-            <p className="text-[11px] font-mono text-slate-600 mt-1">
+            <p className="text-xs font-mono text-slate-400 mt-1">
               Designed & Built with React + Tailwind CSS + Framer Motion
             </p>
           </div>

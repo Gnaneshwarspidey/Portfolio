@@ -66,7 +66,7 @@ export function Hero() {
               <div className="mt-5 flex flex-wrap items-center gap-3 text-xl font-semibold text-white/80 sm:text-2xl">
                 <span>{PERSONAL_INFO.role || "AI & ML Student"}</span>
                 <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.9)]" />
-                <span className="bg-gradient-to-r from-cyan-300 via-blue-300 to-violet-300 bg-clip-text text-transparent">
+                <span className="text-cyan-400 font-bold">
                   Building Intelligent Experiences
                 </span>
               </div>
@@ -140,7 +140,7 @@ export function Hero() {
             {/* Scroll indicator */}
             <motion.div
               variants={fadeIn}
-              className="mt-14 flex items-center gap-3 text-xs tracking-[0.3em] text-white/35"
+              className="mt-14 flex items-center gap-3 text-xs tracking-[0.3em] text-slate-400"
             >
               <span>Scroll to explore</span>
               <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}>

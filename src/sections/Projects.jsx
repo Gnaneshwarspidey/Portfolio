@@ -108,11 +108,11 @@ const ProjectCard = ({
               </div>
 
               {/* Hover arrow */}
-              <div className="absolute bottom-4 right-4 z-10">
+              <div className="absolute bottom-3 right-3 z-10">
                 <div
                   className="
-                    w-9
-                    h-9
+                    w-11
+                    h-11
                     rounded-xl
                     bg-blue-600
                     text-white
@@ -140,7 +140,7 @@ const ProjectCard = ({
 
               {/* Category */}
               <div className="mb-2">
-                <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-cyan-400">
+                <span className="text-xs font-mono font-semibold uppercase tracking-wider text-cyan-400">
                   {project.category}
                 </span>
               </div>
@@ -183,7 +183,7 @@ const ProjectCard = ({
                       bg-dark-950
                       border
                       border-zinc-800
-                      text-[11px]
+                      text-xs
                       font-mono
                       text-zinc-300
                       group-hover:border-cyan-400/30
@@ -203,9 +203,9 @@ const ProjectCard = ({
                       bg-dark-950
                       border
                       border-zinc-800
-                      text-[11px]
+                      text-xs
                       font-mono
-                      text-zinc-500
+                      text-zinc-400
                     "
                   >
                     +{project.technologies.length - 5}
@@ -221,6 +221,7 @@ const ProjectCard = ({
                 <div className="flex items-center justify-between">
                   <button
                     onClick={() => onSelect(project)}
+                    aria-label={`View details and architecture for ${project.title}`}
                     className="
                       group/btn
                       flex
@@ -228,6 +229,7 @@ const ProjectCard = ({
                       gap-1.5
                       px-3.5
                       py-2
+                      min-h-[44px]
                       rounded-xl
                       border
                       border-cyan-400/30
@@ -264,6 +266,7 @@ const ProjectCard = ({
                       gap-1.5
                       px-3
                       py-2
+                      min-h-[44px]
                       rounded-xl
                       bg-white/[0.04]
                       border
@@ -491,8 +494,8 @@ export const Projects = () => {
                   top-5
                   right-5
                   z-10
-                  w-9
-                  h-9
+                  w-11
+                  h-11
                   rounded-xl
                   flex
                   items-center

@@ -228,3 +228,4 @@ Surfaces rely on tonal layering, subtle hairline borders, and atmospheric radial
 - **Don't** use decorative generic stock photos; use real project captures and diagrams.
 - **Don't** use low-contrast text that violates WCAG AA standards against obsidian backgrounds.
 - **Don't** hide critical portfolio navigation or project links behind multi-click carousels.
+
