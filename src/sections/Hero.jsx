@@ -176,6 +176,10 @@ export function Hero() {
                 <img
                   src={profileImg}
                   alt={PERSONAL_INFO.name}
+                  width={384}
+                  height={384}
+                  fetchPriority="high"
+                  decoding="async"
                   className="h-full w-full object-cover object-top"
                 />
                 {/* Subtle inner overlay */}

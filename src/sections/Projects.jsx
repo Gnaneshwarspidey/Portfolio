@@ -79,6 +79,8 @@ const ProjectCard = ({
                 <img
                   src={PROJECT_IMAGES[project.id]}
                   alt={project.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -364,6 +366,18 @@ export const Projects = () => {
     };
   }, []);
 
+  /* Lock background scroll when modal is open */
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedProject]);
+
   return (
     <section
       id="projects"
@@ -451,6 +465,9 @@ export const Projects = () => {
 
             <motion.div
               ref={modalRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-title"
               initial={{
                 opacity: 0,
                 scale: 0.95,

@@ -24,10 +24,6 @@ const InteractiveContactCard = ({
 }) => {
   const cardRef = useRef(null);
 
-  const [transform, setTransform] = useState(
-    'perspective(1200px) rotateX(0deg) rotateY(0deg)'
-  );
-
   const [spotlight, setSpotlight] = useState({
     x: 50,
     y: 50,
@@ -43,13 +39,6 @@ const InteractiveContactCard = ({
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
-    const rotateY = ((x / rect.width) - 0.5) * 6;
-    const rotateX = ((y / rect.height) - 0.5) * -6;
-
-    setTransform(
-      `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
-    );
-
     setSpotlight({
       x: (x / rect.width) * 100,
       y: (y / rect.height) * 100,
@@ -57,10 +46,6 @@ const InteractiveContactCard = ({
   };
 
   const handleMouseLeave = () => {
-    setTransform(
-      'perspective(1200px) rotateX(0deg) rotateY(0deg)'
-    );
-
     setSpotlight({
       x: 50,
       y: 50,
@@ -77,10 +62,6 @@ const InteractiveContactCard = ({
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{
-        transform,
-        transition: 'transform 180ms ease-out',
-      }}
       className={`group relative ${className}`}
     >
       {/* Animated border glow */}
@@ -269,9 +250,9 @@ export const Contact = () => {
                   <motion.button
                     whileTap={{ scale: 0.9 }}
                     onClick={() => handleCopy(PERSONAL_INFO.email)}
-                    className="ml-2 shrink-0 inline-flex items-center gap-1.5 rounded-xl border border-slate-800 bg-dark-950 px-3 py-2.5 text-xs font-semibold text-slate-400 transition-all hover:border-blue-500/30 hover:text-white"
-                    title="Copy Email"
-                    aria-label="Copy Email"
+                    className="ml-2 shrink-0 inline-flex items-center gap-1.5 min-h-[44px] px-3.5 py-2.5 rounded-xl border border-slate-800 bg-dark-950 text-xs font-semibold text-slate-400 transition-all hover:border-blue-500/30 hover:text-white"
+                    title={copiedEmail ? 'Email address copied' : 'Copy Email'}
+                    aria-label={copiedEmail ? 'Email address copied to clipboard' : 'Copy email address to clipboard'}
                   >
                     {copiedEmail ? (
                       <><Check className="h-4 w-4 text-emerald-400" /><span className="text-emerald-400">Copied</span></>
